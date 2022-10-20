@@ -1,0 +1,958 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body>
+
+
+
+
+
+
+
+
+<div lang="EN-US">
+<div>
+
+<h2 align="center" style="text-align:center;">
+    <span>
+        <img width="244" height="121" src="http://www.cs.stonybrook.edu/~cse214/images/logo.gif"/>
+    </span>
+    <span>
+        <span style="color:purple;"><br/>
+        </span>
+    </span>
+    <span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:maroon;">
+        HOMEWORK 2 - Fall 2022
+    </span>
+</h2>
+
+<div align="center" style="text-align:center;"><span>
+
+<hr size="2" width="100%" align="center"/>
+
+</span></div>
+
+<h3>
+    <strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">
+        HOMEWORK 2 - due <font color="black">Tuesday</font>, September 20th no later than 6:00PM 
+    </span></strong>
+</h3>
+
+<p><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">
+    REMINDERS: 
+</span></strong></p>
+
+<ul type="disc">
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">Be sure your
+     code follows the <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/sec01/codingstyle.htm" target="_blank">coding
+     style</a> for CSE214. </span></b><span></span></li>
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">Make sure
+     you read the warnings about <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/sec01/courseinfo.htm" target="_blank">academic dishonesty</a>.
+     <i>Remember, all work you submit for homework or exams MUST be your own
+     work.</i> </span></b></li>
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">Login to
+     your <a rel="noopener" href="https://facdev04.cs.stonybrook.edu:8443/grade.Login" target="_blank">grading
+     account</a> and click &quot;Submit Assignment&quot; to upload and submit
+     your assignment. </span></b></li>
+
+<li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:red;">You
+    may not use any Java API Data Structures to implement this assignment. </span></b><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;"></span></b></li>
+<li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">You may
+     use Scanner, InputStreamReader, or any other class that you wish for
+     keyboard input.</span></b></li>
+</ul>
+
+<hr size="2" width="100%" align="center"/>
+
+<p><strong>In this assignment, you will write a train car manager for a commercial 
+train. The train, modelled using a Double-Linked List data structure, consists of a chain of
+train cars, each of which contains a product load. A product load has a weight, 
+a value, and can be dangerous or safe. The train car manager will be able to add and remove 
+cars from the train, set the product load for each car, and determine useful properties of 
+the train, such as its length, weight, total value, and whether it contains any dangerous
+product loads.</strong></p>
+
+<p><strong>1. Write a fully-documented class named <span class="code">ProductLoad</span>
+which contains the product name (String), its weight in tons (double), its value in 
+dollars (double), and whether the product is dangerous or not (boolean). You should provide
+accessor and mutator methods for each variable. The mutator methods for weight and value 
+should throw exceptions for illegal arguments (i.e. negative values). The class should 
+include a constructor. The full list of required methods is: </strong></p>
+
+<ul><strong>
+    </strong><li><strong><span class="code">public ProductLoad</span> - constructor (you may include a
+        constructor with parameters)</strong></li><strong>
+    </strong><li><strong>getter and setter methods for each variable</strong></li><strong>
+</strong></ul>
+
+<p><strong>2. Write a fully-documented class named <span class="code">TrainCar</span> 
+which contains a length in meters (double), a weight in tons (double), and a load reference
+(ProductLoad). The load variable of the train may be <span class="code">null</span>, which 
+indicates that the train car is empty and contains no product. The train car should have 
+accessor methods for the length, weight, and load variables; however, you should only 
+provide a mutator method for the load variable (the car weight and length should be 
+constant once set). In addition, the class should specify a constructor method (with 
+whatever parameters are necessary), and a method determining whether the car is empty or
+not. The full list of required methods is: </strong></p>
+
+<ul><strong>
+    </strong><li><strong><span class="code">public TrainCar</span> - constructor (you may include a
+        constructor with parameters)</strong></li><strong>
+    </strong><li><strong>getter methods for each variable</strong></li><strong>
+    </strong><li><strong>setter method only for the load variable.</strong></li><strong>
+    </strong><li><strong>isEmpty() method
+</strong></li></ul> 
+
+<p><strong>3. Write a fully-documented class named <span class="code">TrainCarNode</span> 
+which acts as a node wrapper around a <span class="code">TrainCar</span> object. The class 
+should contain two <span class="code">TrainCarNode</span> references (one for the next node 
+in the chain, one for the previous node in the chain), and one <span class="code">TrainCar
+</span> reference variable containing the data. Include mutator/accessor methods for each
+member variable, and a constructor method.  The full list of required methods is: </strong></p>
+
+<ul><strong>
+    </strong><li><strong><span class="code">public TrainCarNode</span> - constructor (you may include a
+        constructor with parameters)</strong></li><strong>
+    </strong><li><strong>getter and setter methods for each variable</strong></li><strong>
+</strong></ul> 
+
+<h4 align="center" style="text-align:center;">
+    <span>
+        <img width="1050" height="390" src="http://www.cs.stonybrook.edu/~cse214/hw/hw2-images/hw2_uml1.jpg"/>
+    </span>
+    <br/><span>
+        ProductLoad, TrainCar, and TrainCarNode UML specification.
+    </span>
+</h4>
+
+<p><strong>4. Write a fully-documented class named <span class="code">TrainlinkedList</span> 
+which implements a Double-Linked List ADT. The class should contain references to the head
+and tail of the list, as well as a cursor variable (all <span class="code">TrainCarNode</span>), 
+and should provide methods to perform insertion, deletion, search, and various other operations. 
+The class will be based on the following ADT specification:</strong></p>
+
+<p><strong><span class="code">public class TrainLinkedList</span><br/>
+The <span class="code">TrainlinkedList</span> class implements an abstract data type for a 
+Double-Linked List of train cars supporting some common operations on such lists, as well as 
+a few others.</strong></p>
+
+<ul><strong>
+    </strong><li><strong><span class="code">public TrainLinkedList()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Constructs an instance of the <span class="code">TrainLinkedList</span>
+                    with no <span class="code">TrainCar</span> objects in it.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Postconditions:</i>
+                <ul>
+                    <li>This <span class="code">TrainLinkedList</span> has been initialized to
+                    an empty linked list.
+                    </li>
+                    <li>head, tail, and cursor are all set to null.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public TrainCar getCursorData()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Returns a reference to the <span class="code">TrainCar</span> at the node 
+                    currently referenced by the cursor.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Preconditions:</i>
+                <ul>
+                    <li>The list is not empty (cursor is not null).
+                    </li>
+                </ul>
+            </li>
+            <li><i>Returns:</i>
+                <ul>
+                    <li>The reference to the <span class="code">TrainCar</span> at the node 
+                    currently referenced by the cursor.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>    
+
+    </strong><li><strong><span class="code">public void setCursorData(TrainCar car)</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Places <span class="code">car</span> in the node currently referenced by the cursor.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Preconditions:</i>
+                <ul>
+                    <li>The list is not empty (cursor is not null).
+                    </li>
+                </ul>
+            </li>
+            <li><i>Postconditions:</i>
+                <ul>
+                    <li>The cursor node now contains a reference to <span class="code">car</span> as its
+                    data.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>   
+
+    </strong><li><strong><span class="code">public void cursor<font color="red">Forward</font>()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Moves the cursor to point at the next <span class="code">TrainCarNode</span>.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Preconditions:</i>
+                <ul>
+                    <li>The list is not empty (cursor is not null) and cursor does not currently reference
+                    the tail of the list.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Postconditions:</i>
+                <ul>
+                    <li>The cursor has been advanced to the next <span class="code">TrainCarNode</span>,
+                    or has remained at the tail of the list.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public void cursor<font color="red">Backward</font>()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Moves the cursor to point at the previous <span class="code">TrainCarNode</span>.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Preconditions:</i>
+                <ul>
+                    <li>The list is not empty (cursor is not null) and the cursor does not currently reference the head of the list.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Postconditions:</i>
+                <ul>
+                    <li>The cursor has been moved back to the previous <span class="code">TrainCarNode</span>,
+                    or has remained at the head of the list.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public void insertAfterCursor(TrainCar newCar)</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Inserts a car into the train after the cursor position.
+                    </li>
+                </ul>
+            </li><li><i>Parameters:</i>
+                <ul>
+                    <li><span class="code">newCar</span> 
+                        - the new <span class="code">TrainCar</span> to be inserted into 
+                        the train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Preconditions:</i>
+                <ul>
+                    <li>This <span class="code">TrainCar</span> object has been instantiated </li>
+                    
+                </ul>
+            </li>
+            <li><i>Postconditions:</i>
+                <ul>
+                    <li>The new <span class="code">TrainCar</span> has been inserted into 
+                    the train after the position of the cursor.
+                    </li> 
+                    <li>All <span class="code">TrainCar</span> objects previously on the 
+                    train are still on the train, and their order has been preserved.
+                    </li>
+                    <li>The cursor now points to the inserted car.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Throws:</i>
+                <ul>
+                    <li><span class="code">IllegalArgumentException</span> - Indicates that 
+                    <span class="code">newCar</span> is <span class="code">null</span>.
+                </li></ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public TrainCar removeCursor()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Removes the <span class="code">TrainCarNode</span> referenced by the
+                    cursor and returns the <span class="code">TrainCar</span> contained within
+                    the node.
+                    </li>
+                </ul>
+            </li><li><i>Preconditions:</i>
+                <ul>
+                    <li>The cursor is not null.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Postconditions:</i>
+                <ul>
+                    <li>The <span class="code">TrainCarNode</span> referenced by the cursor
+                    has been removed from the train.
+                    </li>
+                    <li>The cursor now references the <font color="red">next node, or the previous 
+                    node if no next node exists</font>.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public int size()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Determines the number of <span class="code">TrainCar</span> objects
+                    currently on the train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Returns:</i>
+                <ul>
+                    <li>The number of <span class="code">TrainCar</span> objects on this train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Notes:</i>
+                <ul>
+                    <li><font color="red">This function should complete in O(1) time.</font>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public double getLength()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Returns the total length of the train in meters.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Returns:</i>
+                <ul>
+                    <li>The sum of the lengths of each <span class="code">TrainCar</span>
+                    in the train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Notes:</i>
+                <ul>
+                    <li><font color="red">This function should complete in O(1) time.</font>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public double getValue()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Returns the total value of product carried by the train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Returns:</i>
+                <ul>
+                    <li>The sum of the values of each <span class="code">TrainCar</span>
+                    in the train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Notes:</i>
+                <ul>
+                    <li><font color="red">This function should complete in O(1) time.</font>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public double getWeight()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Returns the total weight in tons of the train. Note that
+                    the weight of the train is the sum of the weights of each empty 
+                    <span class="code">TrainCar</span>, plus the weight of the 
+                    <span class="code">ProductLoad</span> carried by that car. 
+                    </li>
+                </ul>
+            </li>
+            <li><i>Returns:</i>
+                <ul>
+                    <li>The sum of the weight of each <span class="code">TrainCar</span>
+                    plus the sum of the <span class="code">ProductLoad</span> carried by 
+                    that car.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Notes:</i>
+                <ul>
+                    <li><font color="red">This function should complete in O(1) time.</font>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public boolean isDangerous()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Whether or not there is a dangerous product on one of the 
+                    <span class="code">TrainCar</span> objects on the train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Returns:</i>
+                <ul>
+                    <li>Returns <span class="code">true</span> if the train contains at 
+                    least one <span class="code">TrainCar</span> carrying a dangerous
+                    <span class="code">ProductLoad</span>, <span class="code">false</span>
+                    otherwise.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Notes:</i>
+                <ul>
+                    <li><font color="red">This function should complete in O(1) time.</font>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public void findProduct(String name)</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Searches the list for all <span class="code">ProductLoad</span> 
+                    objects with the indicated name and sums together their weight and
+                    value (Also keeps track of whether the product is dangerous or not),
+                    then prints a single <span class="code">ProductLoad</span> record to
+                    the console.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Parameters:</i>
+                <ul>
+                    <li><span class="code">name</span>
+                        - the name of the <span class="code">ProductLoad</span> to find
+                        on the train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Notes:</i>
+                <ul>
+                    <li>This method should search the entire train for the indicated 
+                    <span class="code">ProductLoad</span>, and should not stop after the
+                    first match. For example, if there are three different  <span class="code">TrainCar</span> objects each carrying a
+                    <span class="code">ProductLoad</span> with the name &quot;corn&quot;, then this
+                    method should print a single record with the sum of the weight and 
+                    value for the corn on each car. If nothing was found, indicate that 
+                    there are no <span class="code">ProductLoad</span> objects of the 
+                    indicated name on board the train.
+                    </li>
+                    <li><font color="green">For the purposes of this assignment, you
+                    may assume that the dangerousness of loads with equal names are
+                    equal. Simply use the boolean value of isDangerous for the first
+                    match found.</font>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public void printManifest()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Prints a neatly formatted table of the car number, car length,
+                    car weight, load name, load weight, load value, and load
+                    dangerousness for all of the car on the train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Notes:</i>
+                <ul>
+                    <li>There should be a record for each <span class="code">TrainCar</span>
+                    printed to the console, numbered from  1 to n. For each car, print the 
+                    data of the car, followed by the <span class="code">ProductLoad</span> 
+                    data if the car is not empty. If the car is empty, print &quot;Empty&quot; for name, 0 
+                    for weight and value, and &quot;NO&quot; for dangerousness (see sample I/O for example).
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public void removeDangerousCars()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Removes all dangerous cars from the train, maintaining
+                    the order of the cars in the train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Postconditions:</i>
+                <ul>
+                    <li>All dangerous cars have been removed from this train.
+                    </li>
+                    <li>The order of all non-dangerous cars must be maintained
+                    upon the completion of this method.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Notes:</i>
+                <ul>
+                    <li>All the dangerous cars may be discarded after calling this method.</li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+    </strong><li><strong><span class="code">public String toString()</span><br/>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Returns a neatly formatted String representation of the train.
+                    </li>
+                </ul>
+            </li>
+            <li><i>Returns:</i>
+                <ul>
+                    <li>A neatly formatted string containing information about the train,
+                    including its size (number of cars), length in meters, weight in tons,
+                    value in dollars, and whether it is dangerous or not.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </strong></li><strong><br/>
+
+</strong></ul>
+
+<p><strong>5. Write a fully-documented class named <span class="code">TrainManager</span> 
+that is based on the following specification:</strong></p>
+
+<p><strong><span class="code">public class TrainManager</span>
+<br/>
+<br/><span class="code">public static void main(String[] args)</span>
+<br/>The main method runs a menu driven application which first creates an empty 
+<span class="code">TrainLinkedList</span> object. The program prompts the user for a command
+to execute an operation. Once a command has been chosen, the program may ask the user for 
+additional information if necessary, and performs the operation. The operations should be 
+defined as follows:</strong></p>
+
+<ul>
+    <li>F - Move Cursor Forward
+        <br/>Moves the cursor forward one car (if a next car exists).
+    </li>
+    <li>B - Move Cursor Backward
+        <br/>Moves the cursor backward one car (if a previous car exists).
+    </li>
+    <li>I - Insert Car After Cursor &lt;Length&gt; &lt;Weight&gt;
+        <br/>Inserts a new empty car after the cursor. If the cursor is
+        <span class="code">null</span> (i.e. the train is empty), the
+        car is set as the head of the train. After insertion, the cursor
+        is set to the newly inserted car.
+    </li>
+    <li>R - Remove Car At Cursor
+        <br/>Removes the car at current position of the cursor. After
+        deletion, the cursor is set to the next car in the list if
+        one exists, otherwise the previous car. If there is no previous
+        car, the list is empty and the cursor is set to <span class="code">null</span>.
+    </li>
+    <li>L - Set Load At Cursor &lt;Name&gt; &lt;Weight&gt; &lt;Value&gt; &lt;Is Dangerous&gt;
+        <br/>Sets the product load at the current position in the list.
+    </li>
+    <li>S - Search For Product &lt;name&gt;
+        <br/>Searches the train for all the loads with the indicated name and 
+        prints out the total weight and value, and whether the load is dangerous
+        or not. If the product could not be found, indicate to the user that the 
+        train does not contain the indicated product.
+    </li>
+    <li>T - Print Train
+        <br/>Prints the String value of the train to the console.
+    </li>
+    <li>M - Print Manifest
+        <br/>Prints the train manifest - the loads carried by each car.
+    </li>
+    <li>D - Remove Dangerous Cars
+        <br/>Removes all the dangerous cars from the train.
+    </li>
+    <li>Q - Quit
+        <br/>Terminates the program.
+    </li>
+</ul>
+
+<h4 align="center" style="text-align:center;">
+    <span>
+        <img width="820" height="590" src="http://www.cs.stonybrook.edu/~cse214/hw/hw2-images/hw2_uml2.png"/>
+    </span>
+    <br/><span>
+        TrainLinkedList and TrainManager specification.
+    </span>
+</h4>
+
+<p><strong><span style="color:red;">Note: You may include additional member 
+variables or methods in any class as necessary or as you find convenient.
+</span></strong></p>
+
+<p><strong><u>INPUT FORMAT:</u></strong></p>
+
+<ul><strong>
+    </strong><li><strong>Each menu operation is entered on its own line and should be case 
+    insensitive (i.e. &#39;q&#39; and &#39;Q&#39; are the same).
+    </strong></li><strong>
+    </strong><li><strong>Check to make sure that the position, if required, is valid. If not, 
+    print and error message and return to the main menu.
+    </strong></li><strong>
+    </strong><li><strong>For the Insert Course and Set Load commands, if the input information 
+    is valid, construct the object accordingly. Otherwise, print an error 
+    message and return to the main menu.
+    </strong></li><strong>
+    </strong><li><strong>You may assume Strings are at most 25 characters long.
+    </strong></li><strong>
+</strong></ul>
+
+<p><strong><u>OUTPUT FORMAT:</u></strong></p>
+
+<ul><strong>
+    </strong><li><strong>Each command should output the result (as shown in sample IO below) 
+    after each operation is performed.
+    </strong></li><strong>
+    </strong><li><strong>All menu operations must be accompanied by a message indicating what 
+    operation was performed and whether or not it was successful.
+    </strong></li><strong>
+    <span></span></strong><li><strong>All lists must be printed in a nice and tabular form as shown 
+    in the sample output. You may use C style formatting as shown in the 
+    following example. The example below shows two different ways of displaying
+    the name and address at pre-specified positions 21, 26, 19, and 6 spaces wide.
+    If the &#39;-&#39; flag is given, then it will be left-justified (padding will be on
+    the right), else the region is right-justified. The &#39;s&#39; identifier is for 
+    strings, the &#39;d&#39; identifier is for integers. Giving the additional &#39;0&#39; flag 
+    pads an integer with additional zeroes in front.
+    </strong></li><strong>
+    <pre>    
+    String name = &quot;Doe Jane&quot;;
+    String address = &quot;32 Bayview Dr.&quot;;
+    String city = &quot;Fishers Island, NY&quot;;
+    int zip = 6390;
+
+    System.out.println(String.format(&quot;%-21s%-26s%19s%06d&quot;, name, address, city, zip));
+    System.out.printf(&quot;%-21s%-26s%19s%06d&quot;, name, address, city, zip);
+
+    Doe Jane             32 Bayview Dr.             Fishers Island, NY 06390
+    Doe Jane             32 Bayview Dr.             Fishers Island, NY 06390
+    </pre>
+    
+</strong></ul>
+
+<p><strong><u>HINTS:</u></strong></p>
+
+<ul><strong>
+    </strong><li><strong>Remember that the position parameter to all of the methods in the 
+    <span class="code">TrainLinkedList</span> class refers to the position of a 
+    <span class="code">TrainCar</span> within the list (starting at position 1).
+</strong></li></ul>
+
+<p><strong><u>SAMPLE INPUT/OUTPUT:</u></strong></p>
+
+<div class="code"><strong>
+
+<p><span class="comment">// Comment in green, </span><span class="input">input in red, 
+</span>output in black</p>
+
+<p> (F) Cursor Forward
+<br/>(B) Cursor Backward
+<br/>(I) Insert Car After Cursor
+<br/>(R) Remove Car At Cursor
+<br/>(L) Set Product Load
+<br/>(S) Search For Product
+<br/>(T) Display Train
+<br/>(M) Display Manifest
+<br/>(D) Remove Dangerous Cars
+<br/>(Q) Quit
+</p>
+
+<p>Enter a selection: <span class="input">I</span></p>
+
+<p> Enter car length in meters: <span class="input">15.0</span>
+<br/>Enter car weight in tons: <span class="input">10.0</span>
+</p>
+
+<p>New train car 15.0 meters 10.0 tons inserted into train.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">M</span></p>
+
+<pre>    CAR:                               LOAD:
+      Num   Length (m)    Weight (t)  |    Name      Weight (t)     Value ($)   Dangerous
+    ==================================+===================================================
+ -&gt;    1          15.0          10.0  |     Empty           0.0          0.00          NO
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">L</span></p>
+
+<p>Enter produce name: <span class="input">Corn</span>
+<br/>Enter product weight in tons: <span class="input">100.0</span>
+<br/>Enter product value in dollars: <span class="input">15440</span>
+<br/>Enter is product dangerous? (y/n): <span class="input">n</span>
+</p>
+
+<p>100.0 tons of Corn added to the current car.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">M</span></p>
+
+<pre>    CAR:                               LOAD:
+      Num   Length (m)    Weight (t)  |    Name      Weight (t)     Value ($)   Dangerous
+    ==================================+===================================================
+ -&gt;    1          15.0          10.0  |      Corn         100.0     15,440.00          NO
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">I</span></p>
+
+<p> Enter car length in meters: <span class="input">18.5</span>
+<br/>Enter car weight in tons: <span class="input">8.3</span>
+</p>
+
+<p>New train car 18.5 meters 8.3 tons inserted into train.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">M</span></p>
+
+<pre>    CAR:                               LOAD:
+      Num   Length (m)    Weight (t)  |    Name      Weight (t)     Value ($)   Dangerous
+    ==================================+===================================================
+       1          15.0          10.0  |      Corn         100.0     15,440.00          NO
+ -&gt;    2          18.5           8.3  |     Empty           0.0          0.00          NO
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">L</span></p>
+
+<p> Enter product name: <span class="input">Corn</span>
+<br/>Enter product weight in tons: <span class="input">85.0</span>
+<br/>Enter product value in dollars: <span class="input">13120</span>
+<br/>Enter is product dangerous? (y/n): <span class="input">n</span>
+</p>
+
+<p>85.0 tons of Corn added to the current car.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">M</span></p>
+
+<pre>    CAR:                               LOAD:
+      Num   Length (m)    Weight (t)  |    Name      Weight (t)     Value ($)   Dangerous
+    ==================================+===================================================
+       1          15.0          10.0  |      Corn         100.0     15,440.00          NO
+ -&gt;    2          18.5           8.3  |      Corn          85.0     13,120.00          NO
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">T</span></p>
+
+<p>Train: 2 cars, 33.5 meters, 203.3 tons, $28,560.00 value, not dangerous.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">F</span></p>
+
+<p>No next car, cannot move cursor forward.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">B</span></p>
+
+<p>Cursor moved backward</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">M</span></p>
+
+<pre>    CAR:                               LOAD:
+      Num   Length (m)    Weight (t)  |    Name      Weight (t)     Value ($)   Dangerous
+    ==================================+===================================================
+ -&gt;    1          15.0          10.0  |      Corn         100.0     15,440.00          NO
+       2          18.5           8.3  |      Corn          85.0     13,120.00          NO
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">I</span></p>
+
+<p> Enter car length in meters: <span class="input">32.1</span>
+<br/>Enter car weight in tons: <span class="input">17.4</span>
+</p>
+
+<p>New train car 32.1 meters 17.4 tons inserted into train.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">M</span></p>
+
+<pre>    CAR:                               LOAD:
+      Num   Length (m)    Weight (t)  |    Name      Weight (t)     Value ($)   Dangerous
+    ==================================+===================================================
+       1          15.0          10.0  |      Corn         100.0     15,440.00          NO
+ -&gt;    2          32.1          17.4  |     Empty           0.0          0.00          NO
+       3          18.5           8.3  |      Corn          85.0     13,120.00          NO
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">L</span></p>
+
+<p> Enter produce name: <span class="input">TNT</span>
+<br/>Enter product weight in tons: <span class="input">25.3</span>
+<br/>Enter product value in dollars: <span class="input">151500</span>
+<br/>Enter is product dangerous? (y/n): <span class="input">y</span>
+</p>
+
+<p>25.3 tons of TNT added to the current car.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">M</span></p>
+
+<pre>    CAR:                               LOAD:
+      Num   Length (m)    Weight (t)  |    Name      Weight (t)     Value ($)   Dangerous
+    ==================================+===================================================
+       1          15.0          10.0  |      Corn         100.0     15,440.00          NO
+ -&gt;    2          32.1          17.4  |       TNT          25.3    151,500.00         YES
+       3          18.5           8.3  |      Corn          85.0     13,120.00          NO
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">T</span></p>
+
+<p>Train: 3 cars, 65.6 meters, 246.0 tons, $180,060.00 value, DANGEROUS.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">S</span></p>
+
+<p>Enter product name: <span class="input">Corn</span></p>
+
+<p>The following products were found on 2 cars:
+
+</p><pre>        Name      Weight (t)     Value ($)   Dangerous
+    ===================================================
+          Corn         185.0     28,560.00          NO
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">S</span></p>
+
+<p>Enter product name: <span class="input">Milk</span></p>
+
+<p>No record of Milk on board train.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">D</span></p>
+
+<p>Dangerous cars successfully removed from the train.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">M</span></p>
+
+<pre>    CAR:                               LOAD:
+      Num   Length (m)    Weight (t)  |    Name      Weight (t)     Value ($)   Dangerous
+    ==================================+===================================================
+       1          15.0          10.0  |      Corn         100.0     15,440.00          NO
+ -&gt;    2          18.5           8.3  |      Corn          85.0     13,120.00          NO
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">R</span></p>
+
+<p>Car successfully unlinked. The following load has been removed from the train:</p>
+
+<pre>        Name      Weight (t)     Value ($)   Dangerous
+    ===================================================
+          Corn          85.0     13,120.00          NO
+</pre>
+
+<p>Enter a selection: <span class="input">M</span></p>
+
+<pre>    CAR:                               LOAD:
+      Num   Length (m)    Weight (t)  |    Name      Weight (t)     Value ($)   Dangerous
+    ==================================+===================================================
+ -&gt;    1          15.0          10.0  |      Corn         100.0     15,440.00          NO
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</span></p>
+
+<p>Enter a selection: <span class="input">Q</span></p>
+
+<p>Program terminating successfully...</p>
+
+<strong></strong></strong></div><strong><strong>
+
+<hr size="2" width="100%" align="center"/>
+
+<p align="center" style="text-align:center;"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:maroon;"><a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/sec01/courseinfo.htm" target="_blank">Course Info</a> | <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/sec01/schedule.htm" target="_blank">Schedule</a> | <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/sec01/sections.htm" target="_blank">Sections</a> | <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/sec01/index.html" target="_blank">Announcements</a> | <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/sec01/homework.htm" target="_blank">Homework</a> | <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/sec01/exams.htm" target="_blank">Exams</a> | <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/sec01/help.htm" target="_blank">Help/FAQ</a> | <a rel="noopener" href="https://facdev04.cs.stonybrook.edu:8443/grade.Login" target="_blank">Grades</a> | <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/sec01/index.html" target="_blank">HOME</a></span></strong><b> </b></p>
+
+
+</strong></strong></div></div><script type="module" src="https://s.brightspace.com/lib/bsi/20.22.8-212/unbundled/mathjax.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					if (document.querySelector('math') || /\$\$|\\\(|\\\[|\\begin{|\\ref{|\\eqref{/.test(document.body.innerHTML)) {
+						document.querySelectorAll('mspace[linebreak="newline"]').forEach(elm => {
+							elm.setAttribute('style', 'display: block; height: 0.5rem;');
+						});
+
+						window.D2L.MathJax.loadMathJax({
+							'outputScale': 1.3,
+							'renderLatex': true
+						});
+					}
+				});</script><script type="module" src="https://s.brightspace.com/lib/bsi/20.22.8-212/unbundled/prism.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					document.querySelectorAll('.d2l-code').forEach(code => {
+						window.D2L.Prism.formatCodeElement(code);
+					});
+				});</script></body></html>

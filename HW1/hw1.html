@@ -1,0 +1,419 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"></head><style>.code{font-family:Courier New;}.comment{color:#00B050;}.input{color:red;}</style>
+
+<body style="margin:2em">
+
+<div bgcolor="white" lang="EN-US" link="blue" vlink="purple">
+
+<div>
+
+<h2 align="center" style="text-align:center"><span><img width="244" height="121" src="http://www.cs.stonybrook.edu/~cse214/sec01/images/logo.gif" alt="Description: Description: Description: http://www.cs.stonybrook.edu/~cse214/sec01/images/logo.gif"></span><span> <span style="color:purple"><br>
+</span></span><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:maroon">HOMEWORK 1 - Fall 2022</span><span></span></h2>
+
+<div align="center" style="text-align:center"><span>
+
+<hr size="2" width="100%" align="center">
+
+</span></div>
+
+<h3><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">HOMEWORK 1 - due Tuesday, September 6th no later than 6:00PM </span></strong><span></span></h3>
+
+<p><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">REMINDERS: </span></strong></p>
+
+<ul type="disc">
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Be sure your
+     code follows the <a href="http://www.cs.stonybrook.edu/~cse214/sec01/codingstyle.htm" target="_blank">coding
+     style</a> for CSE214. </span></b><span></span></li>
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Make sure
+     you read the warnings about <a href="http://www.cs.stonybrook.edu/~cse214/sec01/courseinfo.htm" target="_blank">academic dishonesty</a>.
+     <i>Remember, all work you submit for homework or exams MUST be your own
+     work.</i> </span></b></li>
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Login to
+     your <a href="https://facdev04.cs.stonybrook.edu:8443/grade.Login" target="_blank">grading
+     account</a> and click &quot;Submit Assignment&quot; to upload and submit
+     your assignment. </span></b></li>
+
+<li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:red">
+You are not allowed to use ArrayList, LinkedList, Vector or any other predefined Java API Data Structure classes to implement this assignment. </span></b><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"></span></b></li>
+<li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">You may
+     use Scanner, InputStreamReader, or any other class that you wish for
+     keyboard input.</span></b></li>
+</ul>
+
+<hr size="2" width="100%" align="center">
+
+<p><strong>In this assignment, you will write a course planner for Stony Brook
+students. The planner is simply a list where students can record the courses they
+want to take in order of preference. A course contains general information such
+as course name, course code, course section, instructor, etc. We will simplify
+the course to include these basic information. The planner should be able to record
+a total of 50 courses, a number which should be declared as a final variable.</strong></p>
+
+<hr>
+<h2><strong><u>UML</u></strong></h2>
+<p><b>The UML Diagram for all the classes specified below is as follows:</b></p>
+<center><img src="https://www.cs.stonybrook.edu/~cse214/hw/hw1-images/hw1-uml-f20.png" width="65%"></center>
+
+<hr>
+
+<h2><strong><u>SPECIFICATIONS</u></strong></h2>
+
+<p><strong>1. Write a fully-documented class named <span class="code">Course</span>
+which contains the course name (String), department (String), code (int), section
+ (byte), and instructor (String). You should provide accessor and mutator methods
+for each variable. The mutator methods for code and section should throw an
+appropriate exception for invalid values (e.g. a negative value). Also, include
+a constructor for the class, as well as the <span class="code">clone()</span> and
+<span class="code">equals()</span> methods. The full list of required methods is: </strong></p>
+
+<ul><strong>
+    <li><span class="code">public Course</span> - constructor (you may include a
+        constructor with parameters)</li>
+    <li>getter/setter methods for each variable</li>
+    <li><span class="code">public Object clone()</span> - the return value is a
+        copy of this Course. Subsequent changes to the copy will not affect the
+        original and vice versa. Note that the return value must be typecasted to
+        a Course before it can be used.</li>
+    <li><span class="code">public boolean equals(Object obj)</span> - a return
+        value of true indicates that obj refers to a Course object with the same
+        attributes as this Course. Otherwise, the return value is false.</li>
+</strong></ul>
+
+<p><strong>2. Write a fully-documented class named <span class="code">Planner</span>
+which stores an ordered list of Course objects. The array indices
+determine the preference of the courses <span class="input">
+(do not use ArrayList, Vector, or any other Java API Data Structures)</span>. A student can insert a course at any
+position within the range of the list. Make sure there are no gaps between courses
+on the list. Note that arrays in Java are 0 indexed, but your listing preference
+should start from 1. The Planner can record a total of 50 courses, so use the
+final variable <span class="code">MAX_COURSES = 50</span> (and refrain from using
+the number 50 within your code). The class will be based on the following ADT
+specification:</strong></p>
+
+<p><strong><span class="code">public class Planner</span><br>The Planner class
+implements an abstract data type for a list of courses supporting some common
+operations on such lists.</strong></p>
+
+<ul><strong>
+    <li><span class="code">public Planner</span><br>Constructs an instance of
+    the Planner with no Course objects in it.<br><i>Postcondition:</i><br>This
+    Planner has been initialized to an empty list of Courses.</li><br>
+
+    <li><span class="code">public int size()</span><br>Determines the number of courses
+    currently in the list.<br><i>Preconditions:</i><br>This Planner has been
+    instatiated.<br><i>Returns:</i><br>The number of Courses in this Planner.</span></li><br>
+
+    <li><span class="code">public void addCourse(Course newCourse, int position)</span><br>
+    <i>Parameters:</i><br><span class="code">newCourse</span> - the new course to
+    add to the list<br><span class="code">position</span> - the position
+    (preference) of this course on the list<br><i>Preconditions:</i><br>This Course
+    object has been instantiated and 1 &le; <span class="code">position</span>
+    &le; items_currently_in_list + 1. The number of Course objects in this Planner
+    is less than MAX_COURSES.<br><i>Postconditions:</i><br>The new Course is
+    now listed in the correct preference on the list. All Courses that were
+    originally greater than or equal to <span class="code">position</span> are
+    moved back one position. (e.g. If there are 5 Courses in a Planner, positioned 1-5,
+    and you insert a Course in position 4, the new Course would be placed in
+    position 4, the Course that was in position 4 will be moved to position 5, and
+    the Course that was in position 5 will be moved to position 6.)<br><i>Throws:</i>
+    <br><span class="code">IllegalArgumentException</span><br>Indicates that
+    <span class="code">position</span> is not within the valid range.<br>
+    <span class="code">FullPlannerExpcetion</span><br>Indicates that there is no
+    more room in the Planner to record an additional Course.<br><i>Note 1:</i><br>
+    <span class="code">position</span> refers to the position in the Planner and
+    not the position in the array.<br><i>Note 2:</i><br>Inserting an item in
+    position (items_currently_in_list + 1) is effectively the same as adding
+    the item to the end of the list.</li><br>
+
+    <li><span class="code">public void addCourse(Course newCourse)</span><br>Works just
+    like <span class="code">public void addCourse(Course newCourse, int position)</span>,
+    except adds to the end of the list.<br><i>Note:</i><br>This method can be written
+    in one line using the <span class="code">addCourse()</span> and <span class="code">
+    size()</span> methods above.</span></li><br>
+
+    <li><span class="code">public void removeCourse(int position)</span><br>
+    <i>Parameters:</i><br><span class="code">position</span> - the position in the
+    Planner where the Course will be removed from.<br><i>Preconditions:</i><br>
+    This Planner has been instantiated and 1 &le; <span class="code">position</span>
+    &le; items_currently_in_list.<br><i>Postconditions:</i><br>The Course at the
+    desired position has been removed. All Courses that were originally greater
+    than or equal to <span class="code">position</span> are moved backward one
+    position. (e.g. If there are 5 Courses in a Planner, positioned 1-5, and you
+    remove the Course in position 4, the item that was in position 5 will be moved
+    to position 4.)<br><i>Throws:</i><br><span class="code">IllegalArgumentException
+    </span><br>Indicates that <span class="code">position</span> is not within the
+    valid range.<br><i>Note:</i><br><span class="code">position</span> refers to
+    the position in the Planner and not the position in the array.</li><br>
+
+    <li><span class="code">public Course getCourse(int position)</span><br>
+    <i>Parameters:</i><br><span class="code">position</span> - position of the
+    Course to retrieve.<br><i>Preconditions:</i><br>The Planner object has been
+    instantiated and 1 &le; <span class="code">position</span> &le; items_currenyly_in_list.
+    <br><i>Returns:</i><br>The Course at the specified position in this Planner
+    object.<br><i>Throws:</i><br><span class="code">IllegalArgumentException
+    </span><br>Indicates that <span class="code">position</span> is not within the
+    valid range.<br><i>Note:</i><br><span class="code">position</span> refers to
+    the position in the Planner and not the position in the array.</li><br>
+
+    <li><span class="code">public <font color="red">static</font> void filter(Planner planner, String department)</span><br>Prints
+    all Courses that are within the specified department.<br><i>Parameters:</i><br>
+    <span class="code">planner</span> - the list of courses to search in <br>
+	<span class="code">department</span> - the 3 letter department code for a Course<br>
+    <i>Preconditions:</i><br>This Planner object has been instantiated.<br><i>
+    Postconditions:</i><br>Displays a neatly formatted table of each course filtered
+    from the Planner. Keep the preference numbers the same.</li><br>
+
+    <li><span class="code">public boolean exists(Course course)</span><br>
+    Checks whether a certain Course is already in the list.<br><i>Parameters:</i><br>
+    <span class="code">course</span> - the Course we are looking for<br><i>Preconditions:
+    </i><br>This Planner and Course has both been instantiated.<br><i>Returns:
+    </i><br>True if the Planner contains this Course, false otherwise.</li><br>
+
+    <li><span class="code">public Object clone()</span><br>Creates a copy of this
+    Planner. Subsequent changes to the copy will not affect the original and vice
+    versa.<br><i>Preconditions:</i><br>This Planner object has been instantiated.
+    <br><i>Returns:</i><br>A copy (backup) of this Planner object.</li><br>
+
+    <li><span class="code">public void printAllCourses()</span><br>Prints a neatly
+    formatted table of each item in the list with its position number as shown in
+    the sample output.<br><i>Preconditions:</i><br>This Planner has been instantiated.
+    <br><i>Postconditions:</i><br>Displats a neatly formatted table of each course
+    from the Planner.<br><span class="comment">Hint: If your <span class="code">
+    toString()</span> method is implemented correctly as described below, you will
+    simply need to call it and print the results to the user.</span></li><br>
+
+    <li><span class="code">public String toString()</span><br>Gets the String
+    representation of this Planner object, which is a neatly formatted table
+    of each Course in the Planner on its own line with its position number as
+    shown in the sample output.<br><i>Returns:</i><br>The String representation
+    of this Planner object.</li>
+</strong></ul>
+
+<p><strong>3. Write a fully-documented class named PlannerManager that is based
+on the following specification:</strong></p>
+
+<p><strong><span class="code">public class PlannerManager</span><br><br><span class="code">
+public static void main(String[] args)</span><br>The main method runs a menu driven
+application which first creates an empty Planner object. The program prompts the
+user for a command to execute an operation. Once a command has been chosen, the
+program may ask the user for additional information if necessary, and performs
+the operation. The operations should be defined as follows:</strong></p>
+
+<ul>
+    <li>A - Add Course &lt;Name&gt; &lt;Code&gt; &lt;Section&gt; &lt;Instructor&gt; &lt;Position&gt;<br>Adds a new course into the list.</li>
+    <li>G - Get Course &lt;Position&gt;<br>Displays information of a Course at the given position.</li>
+    <li>R - Remove Course &lt;Position&gt;<br>Removes the Course at the given position.</li>
+    <li>P - Print Courses in Planner<br>Displays all courses in the list.</li>
+    <li>F - Filter By Department Code &lt;Code&gt;<br>Displays courses that match the given department code.</li>
+    <li>L - Look For Course &lt;Name&gt; &lt;Code&gt; &lt;Section&gt; &lt;Instructor&gt;<br>Determines whether the course with the given attributes is in the list.</li>
+    <li>S - Size<br>Determines the number of courses in the Planner.</li>
+    <li>B - Backup<br>Creates a copy of the given Planner. Changes to the copy will not affect the original and vice versa.</li>
+    <li>PB - Print Courses in Backup<br>Displays all the courses from the backed-up list.</li>
+    <li>RB - Revert to Backup<br>Reverts the current Planner to the backed up copy.</li>
+    <li>Q - Quit<br>Terminates the program.</li>
+</ul>
+
+<p><strong>4. You will need classes to handle the exceptions thrown (see class
+    specifications above for exception classes you need).</strong></p>
+
+<p><strong><span style="color:red">Note: You may include additional methods in any
+class as necessary or as you find convenient.</span></strong></p>
+
+<p><strong><u>INPUT FORMAT:</u></strong></p>
+
+<ul><strong>
+    <li>Each menu operation is entered on its own line and should be case insensitive (i.e. 'q' and 'Q' are the same).</li>
+    <li>Check to make sure that the position, if required, is valid. If not, print and error message and return to the main menu.</li>
+    <li>For the Add Course command, if the input information is valid, construct the object accordingly. Otherwise, print an error message and return to the main menu.</li>
+    <li>You may assume Strings are at most 25 characters long.</li>
+</strong></ul>
+
+<p><strong><u>OUTPUT FORMAT:</u></strong></p>
+
+<ul><strong>
+    <li>Each command should output the result (as shown in sample IO below) after each operation is performed.</li>
+    <li>All menu operations must be accompanied by a message indicating what operation was performed and whether or not it was successful.</li>
+    <span ><li>All lists must be printed in a nice and tabular form as shown in the sample output. You may use C style formatting as shown in the following example. The example below shows two different ways of displaying the name and address at pre-specified positions 21, 26, 19, and 6 spaces wide. If the '-' flag is given, then it will be left-justified (padding will be on the right), else the region is right-justified. The 's' identifier is for strings, the 'd' identifier is for integers. Giving the additional '0' flag pads an integer with additional zeroes in front.</li>
+<pre>    String name = "Doe Jane";
+    String address = "32 Bayview Dr.";
+    String city = "Fishers Island, NY";
+    int zip = 6390;
+
+System.out.println(String.format("%-21s%-26s%19s%06d", name, address, city, zip));
+System.out.printf("%-21s%-26s%19s%06d", name, address, city, zip);
+
+Doe Jane             32 Bayview Dr.             Fishers Island, NY 06390
+Doe Jane             32 Bayview Dr.             Fishers Island, NY 06390
+</pre>
+    </span>
+</strong></ul>
+
+<p><strong><u>HINTS:</u></strong></p>
+
+<ul><strong>
+    <li>Remember that the position parameter to all of the methods in the Planner
+    class refers to the position of a Course within the collection (starting at
+    position 1) and not the position in the array (which starts at position 0).
+    There are two ways that you can handle this issue:</li>
+    <ul>
+        <li>Store the item one in position 0, item two in position 1, and so on
+        and so forth. Inside each method, subtract one from the position given
+        by the parameter to find the appropriate location in the array.</li>
+        <li>Define your array duch that it is the size of MAX_COURSES + 1 instead
+        of MAX_COURSES. Store item one in position 1, item two in position 2, and
+        so on and so forth. Position 0 of the array will not be used.</li>
+    </ul>
+</strong></ul>
+
+<p><strong><u>SAMPLE INPUT/OUTPUT:</u></strong></p>
+
+<div class="code"><strong>
+
+<p><span class="comment">// Comment in green, </span><span class="input">input in red, </span>output in black</p>
+
+<p>(A) Add Course<br>(G) Get Course<br>(R) Remove Course<br>(P) Print Courses in Planner<br>(F) Filter by Department Code<br>(L) Look For Course<br>(S) Size<br>(B) Backup<br>(PB) Print Courses in Backup<br>(RB) Revert to Backup<br>(Q) Quit</p>
+
+<p>Enter a selection: <span class="input">A</span></p>
+
+<p>Enter course name: <span class="input">Data Structures</span><br>Enter department: <span class="input">CSE</span><br>Enter course code: <span class="input">214</span><br>Enter course section: <span class="input">1</span><br>Enter instructor: <span class="input">Ahmad Esmaili</span><br>Enter position: <span class="input">1</span></p>
+
+<p>CSE 214.01 successfully added to planner.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">A</span></p>
+
+<p>Enter course name: <span class="input">Linear Algebra</span><br>Enter department: <span class="input">AMS</span><br>Enter course code: <span class="input">210</span><br>Enter course section: <span class="input">2</span><br>Enter instructor: <span class="input">Alan Tucker</span><br>Enter position: <span class="input">1</span></p>
+
+<p>AMS 210.02 successfully added to planner.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">A</span></p>
+
+<p>Enter course name: <span class="input">System Fundamentals</span><br>Enter department: <span class="input">CSE</span><br>Enter course code: <span class="input">220</span><br>Enter course section: <span class="input">1</span><br>Enter instructor: <span class="input">Kevin McDonnell</span><br>Enter position: <span class="input">2</span></p>
+
+<p>CSE 220.01 successfully added to planner.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">S</span></p>
+
+<p>There are 3 courses in the planner.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">A</span></p>
+
+<p>Enter course name: <span class="input">Elements of Music</span><br>Enter department: <span class="input">MUS</span><br>Enter course code: <span class="input">119</span><br>Enter course section: <span class="input">2</span><br>Enter instructor: <span class="input">Taylor Ackley</span><br>Enter position: <span class="input">4</span></p>
+
+<p>MUS 119.02 successfully added to planner.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">F</span></p>
+
+<p>Enter department code: <span class="input">CSE</span></p>
+
+<pre>No. Course Name               Department Code Section Instructor
+-------------------------------------------------------------------------------
+  2 System Fundamentals       CSE         220      01 Kevin McDonnell
+  3 Data Structures           CSE         214      01 Ahmad Esmaili
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">G</span></p>
+
+<p>Enter position: <span class="input">1</span></p>
+
+<pre>No. Course Name               Department Code Section Instructor
+-------------------------------------------------------------------------------
+  1 Linear Algebra            AMS         210      02 Alan Tucker
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">B</span></p>
+
+<p>Created a backup of the current planner.<p>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">L</span></p>
+
+<p>Enter course name: <span class="input">Elements of Music</span><br>Enter department: <span class="input">MUS</span><br>Enter course code: <span class="input">119</span><br>Enter course section: <span class="input">2</span><br>Enter instructor: <span class="input">Taylor Ackley</span></p>
+
+<p>MUS 119.02 is found in the planner at position 4.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">R</span></p>
+
+<p>Enter position: <span class="input">2</span></p>
+
+<p>CSE 220.01 has been successfully removed from the planner.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">P</span></p>
+
+<pre>Planner:
+No. Course Name               Department Code Section Instructor
+-------------------------------------------------------------------------------
+  1 Linear Algebra            AMS         210      02 Alan Tucker
+  2 Data Structures           CSE         214      01 Ahmad Esmaili
+  3 Elements of Music         MUS         119      02 Taylor Ackley
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">PB</span></p>
+
+<pre>Planner (Backup):
+No. Course Name               Department Code Section Instructor
+-------------------------------------------------------------------------------
+  1 Linear Algebra            AMS         210      02 Alan Tucker
+  2 System Fundamentals       CSE         220      01 Kevin McDonnell
+  3 Data Structures           CSE         214      01 Ahmad Esmaili
+  4 Elements of Music         MUS         119      02 Taylor Ackley
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">RB</span></p>
+
+<p>Planner successfully reverted to the backup copy.</p>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">A</span></p>
+
+<p>Enter course name: <span class="input">Classical Physics I</span><br>Enter department: <span class="input">PHY</span><br>Enter course code: <span class="input">131</span><br>Enter course section: <span class="input">1</span><br>Enter instructor: <span class="input">Thomas Hemmick</span><br>Enter position: <span class="input">4</span></p>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">P</span></p>
+
+<pre> 
+No. Course Name               Department Code Section Instructor
+-------------------------------------------------------------------------------
+  1 Linear Algebra            AMS         210      02 Alan Tucker
+  2 System Fundamentals       CSE         220      01 Kevin McDonnell
+  3 Data Structures           CSE         214      01 Ahmad Esmaili
+  4 Classical Physics I       PHY         131      01 Thomas Hemmick
+  5 Elements of Music         MUS         119      02 Taylor Ackley
+</pre>
+
+<p><span class="comment">// Menu not shown in sample i/o</p>
+
+<p>Enter a selection: <span class="input">Q</span></p>
+
+<p>Program terminating successfully...</p>
+
+<strong></div>
+
+<hr size="2" width="100%" align="center">
+
+<p align="center" style="text-align:center"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:maroon"><a href="http://www.cs.stonybrook.edu/~cse214/sec01/courseinfo.htm" target="_blank">Course Info</a> | <a href="http://www.cs.stonybrook.edu/~cse214/sec01/schedule.htm" target="_blank">Schedule</a> | <a href="http://www.cs.stonybrook.edu/~cse214/sec01/sections.htm" target="_blank">Sections</a> | <a href="http://www.cs.stonybrook.edu/~cse214/sec01/index.html" target="_blank">Announcements</a> | <a href="http://www.cs.stonybrook.edu/~cse214/sec01/homework.htm" target="_blank">Homework</a> | <a href="http://www.cs.stonybrook.edu/~cse214/sec01/exams.htm" target="_blank">Exams</a> | <a href="http://www.cs.stonybrook.edu/~cse214/sec01/help.htm" target="_blank">Help/FAQ</a> | <a href="https://facdev04.cs.stonybrook.edu:8443/grade.Login" target="_blank">Grades</a> | <a href="http://www.cs.stonybrook.edu/~cse214/sec01/index.html" target="_blank">HOME</a></span></strong><b> </b></p>
+
+</body></html>

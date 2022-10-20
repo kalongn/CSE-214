@@ -1,0 +1,659 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body>
+
+
+
+
+
+
+
+<div lang="EN-US">
+<div>
+
+<h2 align="center" style="text-align:center;">
+    <span>
+        <img width="244" height="121" src="http://www.cs.stonybrook.edu/~cse214/images/logo.gif"/>
+    </span>
+    <span>
+        <span style="color:purple;"><br/>
+        </span>
+    </span>
+    <span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:maroon;">
+        HOMEWORK 3 - FALL 2022
+    </span>
+</h2>
+
+<div align="center" style="text-align:center;"><span>
+
+<hr size="2" width="100%" align="center"/>
+
+</span></div>
+
+<h3>
+    <strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">
+        HOMEWORK 3 - due <span style="color:black;">Tuesday</span>, October 4th no later than 6:00PM 
+    </span></strong>
+</h3>
+
+<p><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">
+    REMINDERS: 
+</span></strong></p>
+
+<ul type="disc">
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">Be sure your
+     code follows the <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/codingstyle.htm" target="_blank">coding
+     style</a> for CSE214. </span></b><span></span></li>
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">Make sure
+     you read the warnings about <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/courseinfo.htm" target="_blank">academic dishonesty</a>.
+     <i>Remember, all work you submit for homework or exams MUST be your own
+     work.</i> </span></b></li>
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">Login to
+     your <a rel="noopener" href="http://facdev02.cs.stonybrook.edu:8080/grade.Login" target="_blank">grading
+     account</a> and click &quot;Submit Assignment&quot; to upload and submit
+     your assignment. </span></b></li>
+
+<li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:green;">You
+    may use (and are encouraged to use) any Java API Data Structures you like to implement 
+    this assignment. </span></b><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;"></span></b></li>
+<li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">You may
+     use Scanner, InputStreamReader, or any other class that you wish for
+     keyboard input.</span></b></li>
+</ul>
+
+<hr size="2" width="100%" align="center"/>
+
+
+
+<p>
+<strong>Most programming languages are organized as structured blocks of statements,
+with some blocks nested within others. Functions, which are examples of such blocks, 
+execute statements and other blocks contained within them. Similarly, flow control 
+structures, such as <span class="code">for</span> and <span class="code">while</span> loops, 
+are blocks which can be executed several times subject to some condition. The Python 
+programming language is an example of a language which follows this principle, and is even 
+flexible enough to allow functions to be nested within functions!</strong></p>
+
+<p><strong>In this homework assignment, you will create a code tracer program which takes the name of
+a Python file containing a single function and outputs the Big-Oh order of complexity of that
+function. To make things easier, several restrictions will be made on the format of the input 
+code, and some techniques for text parsing will be described below. You must implement a 
+<span class="code">BlockStack</span> class to determine the complexity of blocks with nested blocks, and 
+use the rules of Big-Oh complexity to determine the total complexity for the function. You are 
+encouraged to use the Java API to help you complete this assignment, but you may implement the
+stack however you like.
+
+<p><strong>It should be noted that you do not need to actually learn Python to complete this 
+assignment - simply following the instructions as detailed in this specification should suffice. 
+However, if you would like some background on language, a good starting point would be the Python
+<a rel="noopener" href="http://www.python.org">website</a>, which should provide you with enough information to get
+a feel for how the language works.</strong></p>
+
+</strong></p>
+
+<hr size="2" width="100%" align="center"/>
+
+<h2>Required Classes</h2>
+<p><strong>The following sections describe classes which are required for this assignment. Each section
+provides a description and the specifications necessary to complete each class. If you feel
+that additional methods would be useful, you may feel free to add them during your implementation
+as you see fit. However, all the variables and methods in the following specifications must be
+included in your project.</strong></p>
+
+<figure>
+    <figcaption style="font-family:sans-serif;"><strong>UML diagram of the Java class structure.</strong>
+    </figcaption>
+    <img width="900px" border="2px" src="http://www.cs.stonybrook.edu/~cse214/hw/hw3-images/PythonTracer_uml.png"/>
+</figure>
+
+<h3>1. Complexity</h3>
+<p><strong>Write a fully-documented class named <span class="code">Complexity</span>
+which represents the Big-Oh complexity of some block of code. Since Big-Oh notation can get quite
+messy (<i>e.g. log(n^(1/2) / n!)</i>), we will restrict the possible orders to powers of 
+two base types: <span class="code">n</span>, and <span class="code">log_n</span>. Following 
+this practice, include two member variables in the <span class="code">Complexity</span> class: 
+<span class="code">nPower</span> (int) and <span class="code">logPower</span> (int). These two
+variables will keep track of what power each of the base types is present in the complexity
+object.
+</strong></p>
+
+<p><strong>For example, a Complexity object with <span class="code">nPower= 4</span> and 
+<span class="code">logPower = 2</span> would represent the complexity <span class="code">O(n^4 * log(n)^2)</span>. Similarly, a Complexity object with <span class="code">nPower = 1</span> and 
+<span class="code">logPower = 1</span> would represent the complexity <span class="code">O(n * log(n))</span> (note that the <span style="color:red;">exponents only appear when the power value is 
+greater than 1</span>). A case to consider is the situation in which both variables are 0, which 
+indicates that the complexity is <span class="code">O(1)</span>.</strong></p> 
+
+<ul><strong>
+    </strong><li><strong><span class="code">public Complexity</span> - constructor (you may include a
+        constructor with parameters)</strong></li><strong><br/>
+    </strong><li><strong>Two int member variables: <span class="code">nPower</span> and <span class="code">
+        logPower.</span></strong></li><strong><br/>
+    </strong><li><strong>Getter and setter methods for both member variables.</strong></li><strong><br/>
+    </strong><li><strong>A toString() method which prints human-readable Big-Oh notation. (e.g 
+    <span class="code">O(n^4 * log(n)^2)</span>.</strong></li><strong>
+</strong></ul>
+
+<h3>2. CodeBlock</h3>
+<p><strong>Write a fully-documented class named <span class="code">CodeBlock</span>
+which describes a nested block of code. There are different types of code blocks you must consider 
+(<i>e.g. a <span class="code">for</span> block, a <span class="code">while</span> block, 
+etc.</i>), so create a static final array of six String variables named <span class="code">
+BLOCK_TYPES</span> to enumerate the types of blocks available for nesting. <span class="code">&quot;def&quot;, &quot;for&quot;,
+&quot;while&quot;, &quot;if&quot;, &quot;elif&quot;, &quot;else&quot;</span>.  You should also declare six static final int variables 
+corresponding to the indices of the <span class="code">BLOCK_TYPE</span> array: <span class="code">
+DEF = 0, FOR = 1, WHILE = 2, IF = 3, ELIF = 4, ELSE = 5</span>.</strong></p>
+
+<p style="font-size:11pt;"><strong>
+<span style="color:green;">NOTE 1</span>: When parsing Python code for the keywords,
+be careful not to accidentally parse the &quot;for&quot; in &quot;fortune&quot; (which might be a variable name) as
+the start of a <span class="code">for</span> block. To avoid this, make sure there is a single space
+(<span class="code">&quot; &quot;</span>) before and after the keyword before starting a new block.
+</strong></p>
+
+<p style="font-size:11pt;"><strong>
+<span style="color:green;">NOTE 2</span>: An alternative to the above combination of a single 
+static array <span class="code">BLOCK_TYPES</span> and six static final ints representing the
+indices is to use a Java <span class="code">
+<a rel="noopener" href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html">Enum</a></span> type. 
+It is not required for this assignment, but you may find it to provide a simpler and more elegant 
+solution.
+</strong></p>
+
+<p><strong>Include a member variable <span class="code">blockComplexity</span> (Complexity) to 
+keep track of the Big-Oh complexity of this block, and a member variable <span class="code">
+highestSubComplexity</span> (Complexity) to keep track of the Big-Oh complexity of the highest-order 
+block nested within this block. The difference between these Complexity objects is that the 
+<span class="code">blockComplexity</span> represents the order of the block ignoring the 
+statements inside (<i>e.g. <span class="code">O(n)</span> for a <span class="code">while</span> block looping from 
+n to 1</i>), whereas the <span class="code">highestSubComplexity</span> represents the highest complexity of
+all the blocks nested inside this block.</strong></p>
+
+<p><strong>
+Lastly, include two <span class="code">String</span> member variables <span class="code">name</span> and 
+<span class="code">loopVariable</span>. The <span class="code">name</span> member will be used to keep track of 
+the nested structure of the blocks. The first block in the stack will always be named &quot;1&quot;. All blocks included 
+directly under a block will be numbered increasingly using a dot &quot;.&quot; separator after the block&#39;s own name (e.g. 
+blocks nested under block 1 will start with &quot;1.1&quot; and proceed to &quot;1.2&quot;, &quot;1.3&quot;, etc). Similarly, all blocks 
+included directly under the block named &quot;1.2&quot; will be numbered &quot;1.2.1&quot;, &quot;1.2.2&quot;, &quot;1.2.3&quot;, etc. For more detail, 
+see the sample I/O below.
+
+The <span class="code">loopVariable</span> member will only be used for <span class="code">while</span> blocks
+in this assignment, as <span class="code">for</span> blocks will not alter their variable during execution in the
+input code. In the constructor, this variable can be initialized to <span class="code">null</span> and should only 
+be updated when a <span class="code">while</span> block is traced and the name of it&#39;s loop variable has been 
+determined. See the sample algorithm below for further information.</strong></p>
+
+<p><strong>Include getter and setter methods for all member variables.</strong></p>
+
+<ul><strong>
+    </strong><li><strong><span class="code">public CodeBlock</span> - constructor (you may include a
+        constructor with parameters)</strong></li><strong><br/>
+    </strong><li><strong>A static final array of six String constants <span class="code">BLOCK_TYPES</span>
+        representing the types of code blocks:</strong></li><strong>
+        <ul>
+            <li><span class="code">public static final String BLOCK_TYPES = {&quot;def&quot;, &quot;for&quot;,
+                &quot;while&quot;, &quot;if&quot;, &quot;elif&quot;, &quot;else&quot;};</span></li>
+        </ul><br/>
+    </strong><li><strong>Six static final int variables corresponding to the indices of the <span class="code">
+        BLOCK_TYPES</span> array:</strong></li><strong>
+        <ul>
+            <li><span class="code">public static final int DEF = 0, FOR = 1, WHILE = 2, IF = 3, 
+                ELIF = 4, ELSE = 5;</span></li>
+        </ul><br/>
+    </strong><li><strong>Two Complexity member variables:
+        <ul>
+            <li><span class="code">private Complexity blockComplexity;</span></li>
+            <li><span class="code">private Complexity highestSubComplexity;</span></li>
+        </ul><br/></strong></li><strong>
+    <font color="red"></font></strong><li><strong><font color="red">Two String member variables:
+        <ul>
+            <li><span class="code">private String name;</span></li>
+            <li><span class="code">private String loopVariable;</span></li>
+        </ul><br/>
+    </font></strong></li><strong>
+    </strong><li><strong>Getter and setter methods for each member variable.</strong></li><strong>
+</strong></ul>
+
+<h3>3. BlockStack (or java.util.Stack)</h3>
+<p><strong>
+Since the complexity of each <span class="code">CodeBlock</span> depends on the complexity 
+of any <span class="code">CodeBlocks</span> nested inside of it (following standard order of 
+complexity rules), your tracer will need to use a Stack to determine the total complexity of a 
+function. In this assignment, you can write your own Stack class or you may use the standard 
+Stack class that is in the java.util package. Go to the HELP section and view the online 
+documentation for Stack from the Java API.<br/></strong></p>
+
+<p style="font-size:11pt;"><strong>
+<span style="color:red;">CAUTION</span>: Although the Stack class has push, pop and peek methods, the Stack 
+class is a subclass of Vector. Therefore, all of the methods of Vector are also accessible in the 
+Stack class. However, if you use any of the inherited Vector methods in your solution, you will 
+be penalized in this assignment, since some of the Vector methods are not supposed to apply to a 
+Stack ADT in general. (That is, the designers of Java basically define that a Stack is a special 
+type of Vector, but it really isn&#39;t.)
+</strong></p>
+
+<h3>4. PythonTracer</h3>
+<p><strong>Write a fully-documented class named <span class="code">PythonTracer</span> 
+which contains a <span class="code">main</span> method. The class will also contain a static final
+int variable <span class="code">SPACE_COUNT = 4</span> which will be used to determine the indentation of
+each statement (see below). In addition, include a static <span class="code">traceFile</span> 
+method, which will take as a parameter the name of a file containing a Python function. The 
+<span class="code">traceFile</span> method will open the indicated file, trace through the code of
+the Python function contained within the file, and output the details of the trace and the overall
+complexity to the console.</strong></p>
+
+<p><strong>During the operation of the <span class="code">traceFile</span> method, the user should be
+updated to the changes being made to the stack via a <i>stack trace</i>. Every time a new block is pushed
+on to the stack, the block&#39;s name (see the sample I/O for naming convention), complexity, and
+highest sub-complexity should be printed to the console. In addition, every time the Complexity at the top 
+of the stack is updated, the new values should be printed to the console. Lastly, after a block is popped
+from the stack, the new top of the stack should be updated (it&#39;s
+<span class="code">highestSubComplexity
+</span> variable should be changed if necessary), and it should be printed to the console, regardless
+of whether it was changed or not. These operations correspond to &#39;entering&#39; a new block,
+determining the complexity of the current block, and &#39;leaving&#39; a block, respectively. For more detail, 
+see the sample I/O below.</strong></p>
+
+<strong><ul>
+	<li><span class="code">public static final int SPACE_COUNT = 4;</span></li><br/>
+    <li><span class="code">public static Complexity traceFile(String filename)</span>
+        <ul><br/>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Opens the indicated file and traces through the code of the Python
+                    function contained within the file, returning the Big-Oh order of complexity
+                    of the function. During operation, the stack trace should be printed to the
+                    console as code blocks are pushed to/popped from the stack.
+                </li></ul>
+            </li><br/>
+
+            <li><i>Preconditions:</i>
+                <ul>
+                    <li><span class="code">filename</span> is not <span class="code">null</span> and 
+                    the file it names contains a single Python function with valid syntax (<font color="green">Reminder</font>: you do <b>NOT</b> have to check for invalid syntax).
+                </li></ul>
+            </li><br/>
+
+            <li><i>Returns:</i>
+                <ul>
+                    <li>A <span class="code">Complexity</span> object representing the total 
+                    order of complexity of the Python code contained within the file.
+                </li></ul>
+            </li><br/>
+
+        </ul>
+    </li>
+
+    <li><span class="code">public static void main(String[] args)</span>
+        <ul>
+
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Prompts the user for the name of a file containing a single Python 
+                    function, determines its order of complexity, and prints the result to the
+                    console.
+                </li></ul>
+            </li><br/>
+
+        </ul>
+    </li>
+
+</ul>
+
+<h3><i>Trace Algorithm</i></h3>
+
+<p><strong>
+A high-level algorithm for the <span class="code">traceFile</span> method is given below:
+
+<pre style="font-size:12pt;">
+    Initialize <font color="blue">stack</font> to an empty stack of CodeBlocks.
+    Open <font color="blue">file</font> using <font color="blue">filename</font>.
+    while <font color="blue">file</font> has lines
+         <font color="blue">line</font> = next line in <font color="blue">file</font>.
+        if <font color="blue">line</font> is not empty and <font color="blue">line</font> does not start with &#39;#&#39;
+             <font color="blue">indents</font> = number of spaces in <font color="blue">line</font> / <font color="blue">SPACES_COUNT</font>.
+            while <font color="blue">indents</font> is less than size of <font color="blue">stack</font>
+                if <font color="blue">indents</font> is 0
+                     Close <font color="blue">file</font> and return the total complexity of <font color="blue">stack</font>.top.
+                else
+                     <font color="blue">oldTop</font> = <font color="blue">stack</font>.pop()
+                     <font color="blue">oldTopComplexity</font> = total complexity of <font color="blue">oldTop</font>
+                    if <font color="blue">oldTopComplexity</font> is higher order than <font color="blue">stack</font>.top&#39;s highest sub-complexity
+                         <font color="blue">stack</font>.top&#39;s highest sub-complexity = <font color="blue">oldTopComplexity</font>
+            if <font color="blue">line</font> contains a keyword
+                 <font color="blue">keyword</font> = keyword in <font color="blue">line</font>.
+                if <font color="blue">keyword</font> is &quot;for&quot;
+                    Determine the complexity at end of <font color="blue">line</font> (&quot;N:&quot; or &quot;log_N:&quot;)
+                    Create new O(n) or O(log(n)) CodeBlock and push onto <font color="blue">stack</font>.
+                else if <font color="blue">keyword</font> is &quot;while&quot;
+                     <font color="blue">loopVariable</font> = variable being updated (first token after &quot;while&quot;).
+                    Create new O(1) CodeBlock with <font color="blue">loopVariable</font> and push onto <font color="blue">stack</font>.
+                else 
+                    Create new O(1) CodeBlock and push onto the stack.
+            else if <font color="blue">stack</font>.top is a &quot;while&quot; block and <font color="blue">line</font> updates <font color="blue">stack</font>.top&#39;s <font color="blue">loopVariable</font> 
+                Update the blockComplexity of <font color="blue">stack</font>.top.
+        else 
+            Ignore <font color="blue">line</font>.
+    while size of <font color="blue">stack</font> &gt; 1
+        <font color="blue">oldTop</font> = <font color="blue">stack</font>.pop()
+        <font color="blue">oldTopComplexity</font> = total complexity of <font color="blue">oldTop</font>
+        if <font color="blue">oldTopComplexity</font> is higher order than <font color="blue">stack</font>.top&#39;s highest sub-complexity
+             <font color="blue">stack</font>.top&#39;s highest sub-complexity = <font color="blue">oldTopComplexity</font>
+    Return <font color="blue">stack</font>.pop(). 
+</pre>
+
+</strong></p>
+
+<hr size="2" width="100%" align="center"/>
+
+<h2>Input Code Restrictions</h2>
+
+<p>Instead of enclosing blocks of code within curly braces (as is the case in Java and other C-style
+languages), Python delineates blocks of code using whitespace. In Python code, statements in the same
+block must have the exact same number of spaces or tabs preceding them. Once a new block is declared
+(via a new <span class="code">def, for, while, if, else,</span> or <span class="code">elif</span>), 
+all statements contained within the new block must be indented by AT LEAST one additional whitespace character,
+whether it be a space (<span class="code">&quot; &quot;</span>) or a tab (<span class="code">&quot;\t&quot;</span>). Once
+this new block ends, the following statements must have the exact same indentation as the
+previous statements in the block (see the code in <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/hw/hw3-images/src/python_example.py">python_example.py</a>
+for an extensive example of the syntax).</p>
+
+<p>In this assignment, every instance of <span class="code">def, for, while, if, elif</span> and <span class="code">else</span> contains all following statements that are indented <font style="color:red;">
+exactly 4 spaces</font> further than the block declaration. Although valid Python code may have any
+system of consistent indentation, it is conventional to use 4 spaces or a single tab.
+All Python code in this assignment will have 4 spaces as an indentation marker for blocks, which
+will be stored in the <span class="code">SPACES_COUNT</span> variable.<p>
+
+<p>To determine which block a statement is in, count the number of spaces (character &#39; &#39;) occurring before
+the statement, and divide this number by <span class="code">SPACES_COUNT</span>, which is defined in the 
+<span class="code">PythonTracer</span> class. If it is equal to the size of the current
+<span class="code">BlockStack</span>, it is part of the <span class="code">CodeBlock</span> at the top of 
+the stack. If this number is less than the size of the stack, pop <span class="code">CodeBlocks</span> off 
+of the stack until its size is equal to this number. If this number is greater than the current size of 
+the stack, then it is a syntax error (<span style="color:green;">you do not have to check for erroneous 
+code in this assignment, all test files will contain valid Python code</span>).</p>
+
+<p>Comments in Python come in two varieties. There are line comments, which start at the first instance
+of &quot;#&quot; and continue to the end of the line (similar to &quot;//&quot; comments in Java). There are
+also block comments, which start with three consecutive double-quote characters (&quot;&quot;&quot;) and continue until
+the next three consecutive double-quote characters (similar to &quot;/* */&quot; comments in Java). This assignment
+will only contain line comments, and all line comments will exist on a single line (there will be no 
+comment on the same line as any statement). <span style="color:green;">While parsing, you should ignore 
+ANY line that contains at least one &quot;#&quot; character</span>.</p>
+
+<p>When a new block is traced, a new <span class="code">CodeBlock</span> object should be created, and
+it&#39;s <span class="code">blockComplexity</span> variable should be initialized to some value depending
+on the block type. All <span class="code">def</span>, <span class="code">if</span>, <span class="code">
+elif</span>, and <span class="code">else</span> blocks should have a <span class="code">blockComplexity
+</span> of <span class="code">O(1)</span>. However, <span class="code">for</span> blocks and 
+<span class="code">while</span> blocks will have varying complexity, and it is up for you to determine
+the complexity of the block.</p>
+
+<p>In this assignment, all <span class="code">for</span> blocks will be of the following variety, where 
+<span class="code">*</span> represents some variable name:
+<blockquote style="margin-top:5.0pt;margin-bottom:5.0pt;">
+<pre>
+for * in <span style="color:blue;">N</span>                        for * in <span style="color:blue;">log_N</span>
+                    or
+    .  .  .                           .  .  .
+
+</pre>
+</blockquote>
+
+The complexity of <span class="code">for</span> blocks iterating <span class="code">*</span> over
+<span class="code">N</span> is <span class="code">O(N)</span>. Similarly, the complexity of 
+<span class="code">for</span> blocks iterating <span class="code">*</span> over <span class="code">log_N
+</span> is <span class="code">O(log(N))</span>.</p>
+
+<p>In addition, in this assignment, all <span class="code">while</span> blocks will loop from 
+<span class="code">n</span> to <span class="code">1</span> over some variable. Since the complexity of 
+<span class="code">while</span> blocks can only be determined by their update statement, the <span class="code">blockComplexity</span> of <span class="code">while</span> blocks should be initialized to 
+<span class="code">O(1)</span> and changed after the update statement has been located. The update 
+statement will be located within the block and can be either of the following:
+<blockquote style="margin-top:5.0pt;margin-bottom:5.0pt;">
+<pre>
+* = n                              * = n
+
+while (* &gt; 1)                      while (* &gt; 1)
+                       or
+    .  .  .                            .  .  .
+
+    <span style="color:blue;"><b>* -= 1</b></span>                              <span style="color:blue;"><b>* /= 2</b></span>
+
+</pre>
+</blockquote>
+
+<span class="code">while</span> blocks which decrement their counter will have an order of complexity of
+<span class="code">O(n)</span>, whereas <span class="code">while</span> blocks dividing their counter by
+2 will have an order of complexity of <span class="code">O(log(n))</span>.
+</p>
+
+<hr size="2" width="100%" align="center"/>
+
+<h2>Reading From a File</h2>
+
+<p style="font-family:Times New Roman;"><b>The file will contain a Python function in the following format
+(note the number of spaces preceeding each statement):
+<pre>
+def function(n):                         <span style="color:green;">// Start of the function. (Block 1)</span>
+    N = xrange(n);
+    log_N = xrange(int(math.log(n, 2)))
+    for i in N:                          <span style="color:green;">// First block inside Block 1 (Block 1.1).</span>
+        print(i)
+    for j in log_N:                      <span style="color:green;">// Second block inside Block 1 (Block 1.2).</span>
+        for k in N:                      <span style="color:green;">// First block inside Block 1.2 (Block 1.2.1)</span>
+            print(i, k)                  
+    .  .  .
+    .  .  . 
+</pre>
+</b></p>
+
+<p><b>You may use the following code to open an input stream for reading
+from a text file:</b></p>
+
+<blockquote style="margin-top:5.0pt;margin-bottom:5.0pt;">
+<pre>
+FileInputStream fis = new FileInputStream(<span style="color:blue;">fileName</span>);
+
+InputStreamReader inStream = new InputStreamReader(fis);
+
+BufferedReader reader = new BufferedReader(inStream);
+</pre>
+</blockquote>
+
+<p><strong>Once
+the stream is open, you can read one line at a time as follows:</strong></p>
+
+<blockquote>
+<pre>
+String data = reader.readLine();
+</pre>
+</blockquote>
+
+<p><strong>You
+can also create the reader using a scanner:</strong></p>
+
+<blockquote>
+<pre>
+Scanner reader = new Scanner(new File(<span style="color:blue;">fileName</span>));</pre>
+</blockquote>
+
+<p><b>Check the documentation for <a rel="noopener" href="http://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html" target="_blank">BufferedReader</a> or
+<a rel="noopener" href="http://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html" target="_blank">Scanner</a>.</b></p>
+
+<hr size="2" width="100%" align="center"/>
+
+<h2>String Handling Methods/Examples</h2>
+
+<p><b>This homework requires string handling and manipulation. Here are some of the String
+class methods that you may need. For a more thorough explanation please refer
+to the Java API documentation on Strings <a rel="noopener" href="http://java.sun.com/javase/6/docs/api/java/lang/String.html" target="_blank">here.</a></b></p>
+
+<ul>
+	<li><span class="code">char charAt(int index)</span><br/>
+     Returns the char value at the specified index.</li>
+	<li><span class="code">String substring(int beginIndex)</span><br/>
+     Returns a new string that is a substring of this string.</li>
+	<li><span class="code">String substring(int beginIndex, int endIndex)</span><br/>
+     Returns a new string that is a substring of this string.</li>
+	<li><span class="code">String trim()</span><br/>
+     Returns a copy of the string, with leading and trailing whitespace
+     omitted.</li>
+	<li><span class="code">boolean equals(Object anObject)</span><br/>
+     Compares this string to the specified object.</li>
+	<li><span class="code">boolean equalsIgnoreCase(String anotherString)</span><br/>
+     Compares this string to the specified string, ignoring case.</li>
+	<li><span class="code">int indexOf(String str)</span><br/>
+     Returns the index within this string of the first occurrence of the
+     specified character.</li>
+	<li><span class="code">int length()</span><br/>
+     Returns the length of this string.</li>
+	<li><span class="code">String[] split(String regex)</span><br/>
+     Splits this string around matches of the given regular expression.</li>
+</ul>
+
+</p>
+
+<p>Here are some examples of how you might use some of these methods:
+
+<pre>
+    String testString1 = &quot; This is an example String. &quot;
+    String testString2 = &quot;cat&quot;
+    
+    testString1.charAt(9) //Will return &#39;a&#39;
+    testString1.trim() //Will return “This is an example String.”    
+    testString1.substring(5) //returns &quot; is an example String.&quot;  
+    testString1.substring(5, 9) //returns &quot; is &quot;, note that the endIndex is not included in the returned string
+    testString1.substring(5, 9).trim() //returns &quot;is&quot; 
+    
+    testString2.equals(&quot;cat&quot;) //returns true
+    testString2.equals(&quot;bat&quot;) //returns false
+    
+    testString1.indexOf(&quot;amp&quot;) //returns 14
+    testString1.length() //returns 28
+    testString2.length() //returns 3
+    
+    testString1.split(&quot; &quot;) //returns an array of size 5 consisting of &quot;This&quot;, &quot;is&quot;, &quot;an&quot;, &quot;example&quot;, and &quot;String.&quot;
+
+</pre></p>
+
+<p><strong>
+String manipulation is a very important programming skill. Try to come up with some clever and elegant
+solutions to String parsing using these methods. As an example, a clever way to count the number of leading
+spaces in a String is to use a combination of the <span class="code">indexOf()</span> method and the 
+<span class="code">trim()</span> method. 
+
+<pre>
+    // &#39;s&#39; contains the line of text to be parsed.
+    int space_count = s.indexOf(s.trim());
+</pre>
+
+</strong></p>
+
+<hr size="2" width="100%" align="center"/>
+
+<h2>Sample Input/Output:</h2>
+
+<p><span class="comment">// Comment in green, </span><span class="input">input in red, 
+</span>output in black</p>
+
+
+<figure>
+    <figcaption style="font-family:sans-serif;"><strong>
+    <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/hw/hw3-images/src/test_function.py">test_function.py</a></strong>
+    </figcaption><br/>
+    <img width="500" src="http://www.cs.stonybrook.edu/~cse214/hw/hw3-images/test_function.png"/>
+</figure>
+
+<br/>
+
+<div style="font-size:16;" class="code"><strong>
+
+<pre>
+Please enter a file name (or &#39;quit&#39; to quit): <span class="input">test_function.py</span><br/>
+    <span class="comment">// New &#39;def&#39; block parsed, O(1) by default.</span>
+    Entering block 1 &#39;def&#39;:
+    	BLOCK 1:       block complexity = O(1)       highest sub-complexity = O(1)<br/>
+    <span class="comment">// New &#39;for&#39; block parsed, determined to go from 1 to n.</span>
+    Entering block 1.1 &#39;for&#39;:
+        BLOCK 1.1:     block complexity = O(n)       highest sub-complexity = O(1)<br/>
+    <span class="comment">// New &#39;for&#39; block parsed, determined to go from 1 to log(n).</span>
+    Entering block 1.1.1 &#39;for&#39;:
+        BLOCK 1.1.1:   block complexity = O(log(n))  highest sub-complexity = O(1)<br/>
+    <span class="comment">// Updating highest sub-complexity of Block 1.1 from O(1) to O(log(n)).</span>
+    Leaving block 1.1.1, updating block 1.1:
+    	BLOCK 1.1:     block complexity = O(n)       highest sub-complexity = O(log(n))<br/>
+    <span class="comment">// Updating highest sub-complexity of Block 1 from O(1) to O(n * log(n)).</span>
+    Leaving block 1.1, updating block 1:
+        BLOCK 1:       block complexity = O(1)       highest sub-complexity = O(n* log(n))<br/>
+    <span class="comment">// New &#39;while&#39; block parsed, is O(1) until update statement is found.</span>
+    Entering block 1.2 &#39;while&#39;: 
+        BLOCK 1.2:     block complexity = O(1)       highest sub-complexity = O(1)<br/>
+    <span class="comment">// Update statement parsed, block complexity changed from O(1) to O(log(n)). </span>
+    Found update statement, updating block 1.2:
+        BLOCK 1.2:     block complexity = O(log(n))  highest sub-complexity = O(1)<br/>
+    <span class="comment">// Complexity of Block 1.2 O(log(n) is less than current highest sub-complexity of Block 1 (O(n * log(n))) </span>
+    Leaving block 1.2, nothing to update.
+        BLOCK 1:       block complexity = O(1)       highest sub-complexity = O(n * log(n))<br/>
+    Leaving block 1.
+
+Overall complexity of test_function: O(n * log(n))
+
+</pre>
+
+<figure>
+    <figcaption style="font-family:sans-serif;"><strong>
+    <a rel="noopener" href="http://www.cs.stonybrook.edu/~cse214/hw/hw3-images/src/matrix_multiply.py">matrix_multiply.py</a></strong>
+    </figcaption><br/>
+    <img width="500" src="http://www.cs.stonybrook.edu/~cse214/hw/hw3-images/matrix_multiply.png"/>
+</figure>
+
+<pre>
+
+<span class="comment">// No comments here, try to follow the stack trace using the code above.</span>
+Please enter a file name (or &#39;quit&#39; to quit): <span class="input">matrix_multiply.py</span><br/>
+    Entering block 1 &#39;def&#39;:
+    	BLOCK 1:       block complexity = O(1)       highest sub-complexity = O(1)<br/>
+    Entering block 1.1 &#39;for&#39;:
+        BLOCK 1.1:     block complexity = O(n)       highest sub-complexity = O(1)<br/>
+    Entering block 1.1.1 &#39;for&#39;:
+        BLOCK 1.1.1:   block complexity = O(n)       highest sub-complexity = O(1)<br/>
+    Entering block 1.1.1.1 &#39;for&#39;:
+        BLOCK 1.1.1.1: block complexity = O(n)       highest sub-complexity = O(1)<br/>
+    Leaving block 1.1.1.1 updating block 1.1.1:
+        BLOCK 1.1.1:   block complexity = O(n)       highest sub-complexity = O(n)<br/>
+    Leaving block 1.1.1 updating block 1.1:
+        BLOCK 1.1:     block complexity = O(n)       highest sub-complexity = O(n^2)<br/>
+    Leaving block 1.1 updating block 1:
+        BLOCK 1:       block complexity = O(1)       highest sub-complexity = O(n^3)<br/>
+    Leaving block 1.
+
+Overall complexity of matrix_multiply: O(n^3)
+
+Please enter a file name (or &#39;quit&#39; to quit): <span class="input">quit</span>
+Program terminating successfully...
+
+</pre></strong>
+</div>
+
+<strong></strong></p></strong></div><strong>
+
+<hr size="2" width="100%" align="center"/>
+
+<p align="center" style="text-align:center;"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:maroon;"><a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/courseinfo.htm" target="_blank">Course Info</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/schedule.htm" target="_blank">Schedule</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/sections.htm" target="_blank">Sections</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/index.html" target="_blank">Announcements</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/homework.htm" target="_blank">Homework</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/exams.htm" target="_blank">Exams</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/help.htm" target="_blank">Help/FAQ</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/grades.htm" target="_blank">Grades</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/index.html" target="_blank">HOME</a></span></strong><b> </b></p>
+
+</strong></div>
+<script type="module" src="https://s.brightspace.com/lib/bsi/20.22.9-239/unbundled/mathjax.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					if (document.querySelector('math') || /\$\$|\\\(|\\\[|\\begin{|\\ref{|\\eqref{/.test(document.body.innerHTML)) {
+						document.querySelectorAll('mspace[linebreak="newline"]').forEach(elm => {
+							elm.setAttribute('style', 'display: block; height: 0.5rem;');
+						});
+
+						window.D2L.MathJax.loadMathJax({
+							'outputScale': 1.3,
+							'renderLatex': true
+						});
+					}
+				});</script><script type="module" src="https://s.brightspace.com/lib/bsi/20.22.9-239/unbundled/prism.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					document.querySelectorAll('.d2l-code').forEach(code => {
+						window.D2L.Prism.formatCodeElement(code);
+					});
+				});</script></body></html>
