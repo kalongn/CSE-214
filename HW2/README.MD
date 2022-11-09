@@ -1,2 +1,2 @@
-### HW2 Code <br/>
-Linked List
+### HW2 <br/>
+Topic: Linked List
