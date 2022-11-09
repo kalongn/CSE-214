@@ -1,2 +1,2 @@
-### HW3 Code <br/>
-Stacks
+### HW3 <br/>
+Topic: Stacks
