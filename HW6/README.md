@@ -1,1 +1,2 @@
-HW6 HashTable
+### HW6 <br/>
+Topic: Hashing and Tables
