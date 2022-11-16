@@ -1,0 +1,804 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body>
+
+
+
+
+
+
+
+<div lang="EN-US">
+<div>
+
+<h2 align="center" style="text-align:center;">
+    <span>
+        <img width="244" height="121" src="http://www.cs.stonybrook.edu/~cse214/images/logo.gif"/>
+    </span>
+    <span>
+        <span style="color:purple;"><br/>
+        </span>
+    </span>
+    <span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:maroon;">
+        HOMEWORK 6- FALL 2022
+    </span>
+</h2>
+
+<div align="center" style="text-align:center;"><span>
+
+<hr size="2" width="100%" align="center"/>
+
+</span></div>
+
+<h3>
+    <strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">
+        HOMEWORK 6 - due Tuesday, November 15th no later than 6:00PM
+    </span></strong>
+</h3>
+
+<p><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">
+    REMINDERS:
+</span></strong></p>
+
+<ul type="disc">
+<li><b><span style="color:red;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">
+   Use of a package is optional. If you wish to use it, make sure to name it &quot;hw6&quot; (all in lower case). Otherwise, you will lose points.</span></b><span></span></li>
+
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">Be sure your
+     code follows the <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/codingstyle.htm" target="_blank">coding
+     style</a> for CSE214. </span></b><span></span></li>
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">Make sure
+     you read the warnings about <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/courseinfo.htm" target="_blank">academic dishonesty</a>.
+     <i>Remember, all work you submit for homework or exams MUST be your own
+     work.</i> </span></b></li>
+ <li><b><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;">Login to
+     your <a rel="noopener" href="http://facdev04.cs.stonybrook.edu:8080/grade.Login" target="_blank">grading
+     account</a> and click &quot;Submit Assignment&quot; to upload and submit
+     your assignment. </span></b></li>
+
+<li><b><span style="font-family:Arial;color:green;">You may use (and are encouraged to use) any Java
+	API Data Structures you like to implement this assignment. </span></b><b><span style="font-family:Arial,sans-serif;"></span></b></li>
+<li><b><span style="font-family:Arial,sans-serif;">You may
+     use Scanner, InputStreamReader, or any other class that you wish for
+     keyboard input.</span></b></li>
+</ul>
+
+<hr size="2" width="100%" align="center"/>
+
+<p><strong>When working with data, we must choose the best data structure to
+manipulate the data set in order to achieve efficient results. A very basic
+array can store information without a problem, but is inefficient when we are
+constantly storing and searching for data. The idea of a table
+is created to increase the efficiency and avoid such problems. Tables
+store data using a tuple &lt;Key, Value&gt;. We choose a special field of an
+object, and use it to uniquely identify the entire object. Therefore, when we store
+and search for an object, we will use the key to save or search for the object.
+Ideally, this will reduce the algorithm to O(1). For this assignment,
+you are allowed to use a HashTable, or a HashMap.</strong></p>
+
+<p><strong>For this assignment, we are working with  a real auction data online.
+The data will be in the form of an XML file. There may
+be extraneous data that we do not need in our analysis. We will selectively
+limit our object construction with information that we are interested in. To get
+started, visit the following websites:</strong></p>
+
+<p><strong><a rel="noopener" href="http://www.cs.washington.edu/research/xmldatasets/data/auctions/ebay.xml">Ebay Auction Data</a></strong></p>
+<p><strong><a rel="noopener" href="http://www.cs.washington.edu/research/xmldatasets/data/auctions/yahoo.xml">Yahoo Auction Data</a></strong></p>
+
+<p><strong>Since these URLs are long, we provide shortcuts via the correspnding TinyURLs:</strong></p>
+
+<p><strong>http://tinyurl.com/nbf5g2h - Ebay Auction Data<br/>
+http://tinyurl.com/p7vub89 - Yahoo Auction Data</strong></p>
+
+<p><strong>Manually extracting the data will be a tedious and error prone job.
+You will learn how to use a data extraction tool to analyze an XML file. You
+can download the file here: <a rel="noopener" href="http://cs.berry.edu/big-data/bigdata.jar">
+Big Data Jar</a>. In addition to the sample code provided below, there is
+documentation available here:<a rel="noopener" href="https://github.com/berry-cs/big-data-cse">
+Big Data Documentation</a>.</strong></p>
+
+<hr size="2" width="100%" align="center"/>
+
+<p><b><u>USING A JAR IN ELCIPSE:</u></b></p>
+
+<p><span>Right click the project name in the
+“Package Explorer” tab (on the left, by default) </span><span style="font-family:
+Wingdings;"><span>&#224;</span></span><span> Select “Build Path” </span><span style="font-family:Wingdings;"><span>&#224;</span></span><span> Select “Add External Archives…” </span><span style="font-family:Wingdings;"><span>&#224;</span></span><span> navigate to where you saved <a rel="noopener" href="http://cs.berry.edu/big-data/bigdata.jar">bigdata.jar</a> and select it.</span></p>
+
+<p><b><u>USING A JAR IN NETBEANS:</u></b></p>
+
+<p><span>Right click the project name in the
+“Package Explorer” tab (on the left, by default) </span><span style="font-family:
+Wingdings;"><span>&#224;</span></span><span> Click on “Properties” </span><span style="font-family:Wingdings;"><span>&#224;</span></span><span> Select “Libraries” on the left</span><span style="font-family:Wingdings;"><span>&#224;</span></span>
+<span> Click on &quot;Add JAR/Folder&quot; on the right</span><span style="font-family:Wingdings;"><span>&#224;</span></span><span> navigate to where you saved <a rel="noopener" href="http://cs.berry.edu/big-data/bigdata.jar">bigdata.jar</a> and select it.</span></p>
+
+<p><span>Now you can “</span><span style="font-family:&quot;Courier New&quot;;">import
+big.data.DataSource</span><span>” in your
+source code (or any other class from the big.data library that you need).</span></p>
+
+<span style="color:red;"><b>Note: DO NOT SUBMIT bigdata.jar along with your Java source files, otherwise 10 points will be deducted.</b></span>
+
+
+<hr size="2" width="100%" align="center"/>
+
+<p><b>
+If we have the URL of the XML file, we can connect to it using the library
+functions. First, we must <span class="code">connect()</span> to the URL,
+then <span class="code">load()</span> the data. Finally, we can <span class="code">
+fetch()</span> the information.<br/><br/>
+Sample Code:</b></p>
+<strong>The file &lt;sample_file.xml&gt; contains the following content:</strong>
+<pre><strong>&lt;root&gt;
+    &lt;item&gt;
+        &lt;attr&gt;1&lt;/attr&gt;
+    &lt;/item&gt;
+    &lt;item&gt;
+        &lt;attr&gt;2&lt;/attr&gt;
+    &lt;/item&gt;
+&lt;/root&gt;
+</strong></pre>
+<pre><strong><span class="code">import big.data.*;
+DataSource ds = DataSource.connect(&quot;sample_file.xml&quot;).load();
+String str = ds.fetchString(&quot;item/attr&quot;);
+<span class="comment">// normally, we can extract a single string data in the path item/attr, but we have multiple values in our case. Instead,
+we should do the following:</span>
+String[] myList = ds.fetchStringArray(&quot;item/attr&quot;);</span>
+</strong></pre>
+
+<p><strong>You will mostly use <span class="code">fetchStringArray()</span> in
+this assignment. Sometimes, the information on the XML may not be complete. You
+might find that your fetch will return  an empty string (i.e. &quot;&quot;). In
+that case, you can replace it with the string: <span class="code">&quot;N/A&quot;</span>.</strong></p>
+
+<hr size="2" width="100%" align="center"/>
+
+<h2>Required Classes</h2>
+<p><strong>The following sections describe classes which are required for this assignment. Each
+section provides a description and the specifications necessary to complete each class. If you feel
+that additional methods would be useful, feel free to add them during your implementation
+as you see fit. However, all the variables and methods in the following specifications must be
+included in your project.</strong></p>
+
+<p><strong><font color="red">NOTE:</font> All classes listed should implement the <span class="code">
+Serializable</span> interface.</strong></p>
+
+<img style="display:block;margin-left:auto;margin-right:auto;" width="1200px" border="2px" src="http://www.cs.stonybrook.edu/~cse214/hw/hw6-images/hw6_uml_f20.png"/>
+<figcaption style="font-family:sans-serif;text-align:center;"><strong><br/>UML Diagram.<br/></strong>
+</figcaption>
+
+<h3>1. Auction</h3>
+<p><strong>Write a fully-documented class named <span class="code">Auction</span>
+which represents an active auction currently in the database. The <span class="code">Auction</span>
+class should contain member variables for the seller&#39;s name, the current bid, the time remaining (in hours),
+current bidder&#39;s name, information about the item, and the unique ID for the auction. In
+addition, the class should implement a <span class="code">toString()</span> method, which should print
+all of the data members in a neat tabular form.</strong></p>
+
+
+<strong><p>The <span class="code">Auction</span> class can only be altered by a single member method
+called <span class="code">newBid()</span>, which takes in the name of a bidder and their bid value.
+This method checks to see if the bid value is greater than the current bid, and if it is, replaces the
+current bid and buyer name. There should be getter methods for each member variable, however, no setters
+should be included.</p></strong>
+
+<p><strong>The following is a list of information you should be paying attention to:</strong></p>
+
+<pre><strong>listing/seller_info/seller_name
+listing/auction_info/current_bid
+listing/auction_info/time_left
+listing/auction_info/id_num
+listing/auction_info/high_bidder/bidder_name
+<span class="comment code">// the following should be combined to get the information of the item</span>
+listing/item_info/memory
+listing/item_info/hard_drive
+listing/item_info/cpu
+</strong></pre>
+
+<ul><strong>
+    </strong><li><strong><span class="code">public Auction()</span> - constructor (you may include a
+        constructor with parameters)</strong></li><strong><br/>
+    </strong><li><strong>An <span class="code">int</span> member variable:
+        <ul>
+            <li><span class="code">timeRemaining</span></li>
+        </ul><br/>
+    </strong></li><strong>
+    </strong><li><strong>A <span class="code">double</span> member variable:
+        <ul>
+            <li><span class="code">currentBid</span></li>
+        </ul><br/>
+    </strong></li><strong>
+    </strong><li><strong>Four  <span class="code">String</span> member variables:
+     	<ul>
+            <li><span class="code">auctionID</span></li>
+            <li><span class="code">sellerName</span></li>
+            <li><span class="code">buyerName</span></li>
+            <li><span class="code">itemInfo</span></li>
+        </ul><br/>
+    </strong></li><strong>
+    </strong><li><strong><span class="code"><font color="red">public void decrementTimeRemaining(int time)
+    </font></span>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Decreases the time remaining for this auction by the specified
+                    amount. If <span class="code">time</span> is greater than the
+                    current remaining time for the auction, then the time remaining
+                    is set to 0 (i.e. no negative times).</li>
+                </ul>
+            </li><br/>
+
+            <li><i>Postconditions:</i>
+                <ul>
+                    <li><span class="code">timeRemaining</span> has been decremented
+                    by the indicated amount and is greater than or equal to 0.</li>
+                </ul>
+            </li><br/>
+
+        </ul>
+    </strong></li><strong>
+    </strong><li><strong><span class="code">public void newBid(String bidderName, double bidAmt) throws ClosedAuctionException
+    </span>
+    	<ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Makes a new bid on this auction. If <span class="code">bidAmt</span> is
+                    larger than <span class="code">currentBid</span>, then the value of
+                    <span class="code">currentBid</span> is replaced by <span class="code">bidAmt</span>
+                    and <span class="code">buyerName</span> is is replaced by <span class="code">bidderName</span>.</li>
+                </ul>
+            </li><br/>
+
+            <li><i>Preconditions:</i>
+                <ul>
+                    <li>The auction is not closed (i.e. <span class="code">timeRemaining &gt; 0</span>).</li>
+                </ul>
+            </li><br/>
+
+            <li><i>Postconditions:</i>
+                <ul>
+                    <li><span class="code">currentBid</span> Reflects the largest bid placed on this object. If the auction is closed, throw a <span class="code">ClosedAuctionException</span>.
+                </li></ul>
+            </li><br/>
+
+            <li><i>Throws:</i>
+                <ul>
+                    <li><span class="code">ClosedAuctionException</span>: Thrown if the auction is closed
+                    and no more bids can be placed (i.e. <span class="code">timeRemaining == 0</span>).</li>
+                </ul>
+            </li><br/>
+        </ul>
+    </strong></li><strong>
+    </strong><li><strong><span class="code">public String toString()</span> - returns string of data members in tabular form.</strong></li><strong><br/>
+    </strong><li><strong><span class="code">Getters for all data members (no setters).<br/>
+</span></strong></li></ul>
+
+<h3>2. AuctionTable</h3>
+
+<p><strong>The database of open auctions will be stored in a hash table to provide constant time
+insertion and deletion. Use the auctionID as the key for the corresponding
+Auction object. In this assignment, you may provide your own implementation for the <span class="code">AuctionTable</span> class, or you may use a hash table implementation provided by the Java API. </strong></p>
+
+<p><strong>If you would like to know more about the Java API implementations, you should read the Orcale
+documentation for <span class="code"><a rel="noopener" href="http://docs.oracle.com/javase/7/docs/api/java/util/Hashtable.html">
+java.util.Hashtable</a></span> and <span class="code"><a rel="noopener" href="http://docs.oracle.com/javase/7/docs/api/java/util/HashMap.html">java.util.HashMap</a></span>.</strong></p>
+
+<p><strong>In addition to the standard hash table functionality, your class should include a function
+which will build an <span class="code">AuctionTable</span> from a URL using the <span class="code">
+BigData</span> library. This function should connect to the data source located at the URL, read in all the
+data members for each record stored in the data source, construct new <span class="code">Auction</span> objects based on the data, and insert the objects in to the table. Exceptions should be thrown if the data source
+could not be connected to or contains invalid syntax structure.</strong></p>
+
+<p><strong>
+<ul>
+	<li><span class="code">public <font color="red">static</font> AuctionTable buildFromURL(String URL) throws IllegalArgumentException</span>
+		<ul>
+	        <li><i>Brief:</i>
+	            <ul>
+	                <li>Uses the <span class="code">BigData</span> library to construct an <span class="code">
+	                AuctionTable</span> from a remote data source.</li>
+	            </ul>
+	        </li><br/>
+
+	        <li><i>Parameters:</i>
+	            <ul>
+	                <li><span class="code">URL</span> - String representing the URL fo the remote data source.</li>
+	            </ul>
+	        </li><br/>
+
+	        <li><i>Preconditions:</i>
+	            <ul>
+	                <li>URL represents a data source which can be connected to using the <span class="code">BigData</span> library.</li>
+	                <li>The data source has proper syntax.</li>
+	            </ul>
+	        </li><br/>
+
+	        <li><i>Postconditions:</i>
+	            <ul>
+	                <li>None.</li>
+	            </ul>
+	        </li><br/>
+
+	        <li><i>Returns:</i>
+	            <ul>
+	                <li>The <span class="code">AuctionTable</span> constructed from the remote data source.</li>
+	            </ul>
+	        </li><br/>
+
+	        <li><i>Throws:</i>
+	            <ul>
+	                <li><span class="code">IllegalArgumentException</span>: Thrown if the URL does not represent
+	                a valid datasource (can&#39;t connect or invalid syntax).</li>
+	            </ul>
+	        </li><br/>
+
+	    </ul>
+	</li>
+    <li><span class="code">public <font color="red">void putAuction</font>(String auctionID, Auction auction) throws IllegalArgumentException</span>
+        <ul>
+            <li><i>Brief:</i>
+                <ul>
+                    <li>Manually posts an auction, and add it into the table.</li>
+                </ul>
+            </li><br/>
+
+            <li><i>Parameters:</i>
+                <ul>
+                    <li><span class="code">auctionID - the unique key for this object</span></li>
+                    <li><span class="code">auction - The auction to insert into the table with the corresponding auctionID</span></li>
+                </ul>
+            </li><br/>
+
+            <li><i>Preconditions:</i>
+                <ul>
+                    <li>None.</li>
+                </ul>
+            </li><br/>
+
+            <li><i>Postconditions:</i>
+                <ul>
+                    <li>The item will be added to the table if all given parameters are correct.</li>
+                </ul>
+            </li><br/>
+
+            <li><i>Throws:</i>
+                <ul>
+                    <li><span class="code">IllegalArgumentException</span>: If the given auctionID is already stored in the table.</li>
+                </ul>
+            </li><br/>
+
+        </ul>
+    </li>
+    <li><span class="code">public Auction <font color="red">getAuction</font>(String auctionID)</span>
+		<ul>
+	        <li><i>Brief:</i>
+	            <ul>
+	                <li>Get the information of an Auction that contains the given ID as key</li>
+	            </ul>
+	        </li><br/>
+
+	        <li><i>Parameters:</i>
+	            <ul>
+	                <li><span class="code">auctionID - the unique key for this object</span></li>
+	            </ul>
+	        </li><br/>
+
+	        <li><i>Returns:</i>
+	            <ul>
+	                <li>An Auction object with the given key, null otherwise.</li>
+	            </ul>
+	        </li><br/>
+	    </ul>
+	</li>
+    <li><span class="code">public void letTimePass(int numHours) throws IllegalArgumentException</span>
+		<ul>
+	        <li><i>Brief:</i>
+	            <ul>
+	                <li>Simulates the passing of time. Decrease the timeRemaining of all Auction objects by the amount specified. The value cannot go below 0.</li>
+	            </ul>
+	        </li><br/>
+
+	        <li><i>Parameters:</i>
+	            <ul>
+	                <li><span class="code">numHours - the number of hours to decrease the timeRemaining value by.</span></li>
+	            </ul>
+	        </li><br/>
+
+	        <li><i>Postconditions:</i>
+	            <ul>
+	                <li>All Auctions in the table have their timeRemaining timer decreased. If the original value is less than the decreased value, set the value to 0.</li>
+	            </ul>
+	        </li><br/>
+
+            <li><i>Throws:</i>
+                <ul>
+                    <li><span class="code">IllegalArgumentException</span>: If the given numHours is non positive</li>
+                </ul>
+            </li><br/>
+
+	    </ul>
+	</li>
+	<li><span class="code">public void removeExpiredAuctions()</span>
+		<ul>
+	        <li><i>Brief:</i>
+	            <ul>
+	                <li>Iterates over all <span class="code">Auction</span> objects in the table and
+	                removes them if they are expired (<span class="code">timeRemaining == 0</span>).</li>
+	            </ul>
+	        </li><br/>
+
+	        <li><i>Postconditions:</i>
+	            <ul>
+	                <li>Only open <span class="code">Auction</span> remain in the table.</li>
+	            </ul>
+	        </li><br/>
+
+	    </ul>
+	</li>
+
+	<li><span class="code">public void printTable()</span>
+		<ul>
+	        <li><i>Brief:</i>
+	            <ul>
+	                <li>Prints the <span class="code">AuctionTable</span> in tabular form.</li>
+	            </ul>
+	        </li><br/>
+
+	    </ul>
+	</li>
+
+</ul>
+</strong></p>
+
+
+<h3>3. AuctionSystem</h3>
+<p><strong>Write a fully-documented class named <span class="code">AuctionSystem</span>. This class will allow
+the user to interact with the database by listing open auctions, make bids on open auctions, and create
+new auctions for different items. In addition, the class should provide the functionality to load a saved
+(serialized) <span class="code">AuctionTable</span> or create a new one if a saved table does not exist.</strong></p>
+
+<p><strong>On startup, the <span class="code">AuctionSystem</span> should check to see if the file
+<font color="green"><span class="code">auctions.obj</span></font> exists in the current directory.
+If it does, then the file should be loaded and deserialized into an <span class="code">AuctionTable</span> for new
+auctions/bids (<i>See the section below for information on the <span class="code">Serializable</span> interface</i>).
+If the file does not exist, an empty <span class="code">AuctionTable</span> object should be created and used instead.
+Next, the user should be prompted to enter a username to access the system. This is the name that will be used to create
+new auctions and bid on the open auctions available in the table.</strong></p>
+
+<p><strong>When the user enters &#39;Q&#39; to quit the program, the auction table should be serialized to the file
+<font color="green"><span class="code">auctions.obj</span></font>. That way, the next time the program is run, the auctions will
+remain in the database and allow different users to make bids on items. If you would like to &#39;reset&#39; the
+auction table, simply delete the <font color="green"><span class="code">auctions.obj</span></font> file. </strong></p>
+
+<ul><strong>
+	</strong><li><strong>An <span class="code">AuctionTable</span> member variable:
+        <ul>
+            <li><span class="code">auctionTable</span></li>
+        </ul>
+    </strong></li><strong>
+	</strong><li><strong>A <span class="code">String</span> member variable:
+        <ul>
+            <li><span class="code">username</span></li>
+        </ul>
+    </strong></li><strong>
+    </strong><li><strong><span class="code">public static void main(String[] args)</span>
+        <ul>
+
+            <li><i>Brief:</i>
+                <ul>
+                    <li>The method should first
+                    prompt the user for a username. This should be stored in <span class="code">username</span>
+                    The rest of the program will be executed on behalf of this user. Implement the
+                    following menu options:</li>
+                </ul>
+            </li><br/>
+
+        </ul>
+    </strong></li><strong>
+</strong></ul>
+
+<ul><strong><span class="code">
+    </span></strong><li><strong>(D) - Import Data from URL</strong></li><strong>
+    </strong><li><strong>(A) - Create a New Auction</strong></li><strong>
+    </strong><li><strong>(B) - Bid on an Item</strong></li><strong>
+    </strong><li><strong>(I) - Get Info on Auction</strong></li><strong>
+    </strong><li><strong>(P) - Print All Auctions</strong></li><strong>
+    </strong><li><strong>(R) - Remove Expired Auctions</strong></li><strong>
+    </strong><li><strong>(T) - Let Time Pass</strong></li><strong>
+    </strong><li><strong>(Q) - Quit</strong></li><strong>
+</strong></ul>
+
+<hr size="2" width="100%" align="center"/>
+
+<h2>Serializable Interface</h2>
+
+<p><b>You will also work with the idea of persistence.
+This means that our program should save all data from session to session. When
+we terminate a program, normally the data will be lost. We will preserve this
+data by using <span class="code">Serializable</span> Java API and binary object files. All your classes should
+simply implement the java.io.Serializartion interface.</b><p>
+
+<p><b><i>Example:</i> Your <span style="font-family:Courier New;">AuctionTable</span>
+class contains information for all auctions saved in the electronic database. You
+would want to preserve this data, so you can load this data the next time you
+run your program. You would do the following:
+<ol>
+    <li><p><b>Modify the <span>AuctionTable</span>
+    so that it implements the <span class="code">Serializable</span> interface.
+    Also, the <span class="code">Auction</span> class should also make this
+    implementation. No other changes are necessary.<br/><br/>
+    <pre class="code">public class AuctionTable implements Serializable
+{
+    <span class="comment">// Member methods as is</span>
+}
+    </pre></b></p></li>
+    <li class="MsoNormal"><b><span>In your application that contains the hash, you can
+     include code that will save the hash into a file so it can be read in
+     again later. To do this, you need to create an </span></b><span class="SpellE"><b><span style="font-family:&quot;Courier New&quot;;">ObjectOutputStream</span></b></span><b><span> to send the data to,
+     and then use the </span></b><span class="SpellE"><b><span style="font-family:
+     &quot;Courier New&quot;;">writeObject</span></b></span><b><span> method to send the
+     hash to the stream, which is stored in the specified file.<br/>
+     <br/>
+     </span></b><span class="SpellE"><b><span style="font-family:&quot;Courier New&quot;;">FileOutputStream</span></b></span><b><span style="font-family:&quot;Courier New&quot;;">
+     file = new <span class="SpellE">FileOutputStream</span>(&quot;auction.obj&quot;);<br/>
+     <span class="SpellE">ObjectOutputStream</span> <span class="SpellE">outStream</span>
+     = new <span class="SpellE">ObjectOutputStream</span>(file);<br/>
+     <span class="SpellE">AuctionTable</span> auctions = new <span class="SpellE">AuctionTable</span>(<span style="color:#00B050;">/*Constructor Parameters*/</span>);<br/>
+     <br/>
+     <span style="color:#00B050;">// missing code here sets up the hash in some
+     way<br/>
+     </span><br/>
+     <span style="color:#00B050;">// the following line will save the object in
+     the file<br/>
+ </span><span class="SpellE">outStream.writeObject</span>(auctions); <br/>
+     &#160;</span></b><span></span></li>
+ <li class="MsoNormal"><b><span style="color:windowtext;">When
+     the same application (or another application) runs again, you can
+     initialize the member using the serialized data saved from step 2 so you
+     don&#39;t have to recreate the object from scratch. To do this, you need to
+     create an </span></b><span class="SpellE"><b><span style="font-family:&quot;Courier New&quot;;color:windowtext;">ObjectInputStream</span></b></span><b><span style="color:windowtext;"> to
+     read the data from, and then use the </span></b><span class="SpellE"><b><span style="font-family:&quot;Courier New&quot;;color:windowtext;">readObject</span></b></span><b><span style="font-family:
+     &quot;Courier New&quot;;color:windowtext;">
+     </span></b><b><span style="color:windowtext;">method to read the hash from the stream.<br/>
+     <br/>
+     </span></b><span class="SpellE"><b><span style="font-family:&quot;Courier New&quot;;color:windowtext;">FileInputStream</span></b></span><b><span style="font-family:&quot;Courier New&quot;;color:windowtext;"> file = new <span class="SpellE">FileInputStream</span>(&quot;auction.obj&quot;);<br/>
+     <span class="SpellE">ObjectInputStream</span> <span class="SpellE">inStream</span>
+     = new <span class="SpellE">ObjectInputStream</span>(file);<br/>
+     <span class="SpellE">AuctionTable</span> auctions;<br/>
+     <br/>
+     auctions = (<span class="SpellE">AuctionLibrary</span>) <span class="SpellE">inStream.readObject</span>();<br/>
+     <br/>
+     </span></b><b><span style="font-family:&quot;Courier New&quot;;" class="comment">// missing code here can use the same hash from step 2
+     now</span></b><span></span></li>
+
+</ol>
+</b></p>
+
+<hr size="2" width="100%" align="center"/>
+
+<h2>Sample Input/Output:</h2>
+
+<p><span class="comment">// Comment in green, </span><span class="input">input in red,
+</span>output in black</p>
+
+<div style="font-size:16;" class="code"><strong>
+
+<pre>
+Starting...
+No previous auction table detected.
+Creating new table...                           <span class="comment">// Notify if loading or not.</span>
+
+Please select a username: <span class="input">student@stonybrook.edu</span>
+
+Menu:
+    (D) - Import Data from URL
+    (A) - Create a New Auction
+    (B) - Bid on an Item
+    (I) - Get Info on Auction
+    (P) - Print All Auctions
+    (R) - Remove Expired Auctions
+    (T) - Let Time Pass
+    (Q) - Quit
+
+
+Please select an option: <span class="input">D</span>
+Please enter a URL: <span class="input">http://tinyurl.com/nbf5g2h</span>
+<span class="comment">// TinyURL for http://www.cs.washington.edu/research/xmldatasets/data/auctions/ebay.xml</span>
+
+Loading...
+Auction data loaded successfully!
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">P</span>
+
+ Auction ID |      Bid   |        Seller         |          Buyer          |    Time   |  Item Info <span class="comment">// truncated to fit on one line</span>
+===================================================================================================================================
+  511601118 | $   620.00 | cubsfantony           |  gosha555@excite.com    | 110 hours | Pentium III 933 System - 256MB PC133 SDram
+  511448507 | $   620.00 | ct-inc                |  petitjc@yahoo.com      |  54 hours | Pentium III 800EB-MHz Coppermine CPU - 256
+  511443245 | $ 1,025.00 | ct-inc                |  hsclm9@peganet.com     |  54 hours | Intel Pentium III 933EB-MHz Coppermine CPU
+  511364992 | $   610.00 | bestbuys4systems      |  wizbang4               |  53 hours | Genuine Intel Pentium III 1000MHz Processo
+  511357667 | $   535.00 | sales@ctgcom.com      |  chul2@mail.utexas.edu  |  53 hours | INTEL Pentium III 800MHz - 256MB sdram -40
+
+
+Please select an option: <span class="input">B</span>
+Please enter an Auction ID: <span class="input">511364992</span>
+
+Auction 511364992 is OPEN
+    Current Bid: $ 610.00
+
+What would you like to bid?: <span class="input">625.00</span>
+Bid accepted.
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">P</span>
+
+ Auction ID |      Bid   |        Seller         |          Buyer          |    Time   |  Item Info <span class="comment">// truncated to fit on one line</span>
+===================================================================================================================================
+  511601118 | $   620.00 | cubsfantony           |  gosha555@excite.com    | 110 hours | Pentium III 933 System - 256MB PC133 SDram
+  511448507 | $   620.00 | ct-inc                |  petitjc@yahoo.com      |  54 hours | Pentium III 800EB-MHz Coppermine CPU - 256
+  511443245 | $ 1,025.00 | ct-inc                |  hsclm9@peganet.com     |  54 hours | Intel Pentium III 933EB-MHz Coppermine CPU
+  511364992 | $   625.00 | bestbuys4systems      |  student@stonybrook.edu |  53 hours | Genuine Intel Pentium III 1000MHz Processo
+  511357667 | $   535.00 | sales@ctgcom.com      |  chul2@mail.utexas.edu  |  55 hours | INTEL Pentium III 800MHz - 256MB sdram -40
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">A</span>
+
+Creating new Auction as student@stonybrook.edu.
+Please enter an Auction ID: <span class="input">100000000</span>
+Please enter an Auction time (hours): <span class="input">24</span>
+Please enter some Item Info: <span class="input">Core i5 2.7GHz - 4GB DDR3 - 750GB HDD</span>
+
+Auction 100000000 inserted into table.
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">P</span>
+
+ Auction ID |      Bid   |        Seller         |          Buyer          |    Time   |  Item Info <span class="comment">// truncated to fit on one line</span>
+===================================================================================================================================
+  511601118 | $   620.00 | cubsfantony           |  gosha555@excite.com    | 110 hours | Pentium III 933 System - 256MB PC133 SDram
+  511448507 | $   620.00 | ct-inc                |  petitjc@yahoo.com      |  54 hours | Pentium III 800EB-MHz Coppermine CPU - 256
+  511443245 | $ 1,025.00 | ct-inc                |  hsclm9@peganet.com     |  54 hours | Intel Pentium III 933EB-MHz Coppermine CPU
+  511364992 | $   625.00 | bestbuys4systems      |  student@stonybrook.edu |  53 hours | Genuine Intel Pentium III 1000MHz Processo
+  511357667 | $   535.00 | sales@ctgcom.com      |  chul2@mail.utexas.edu  |  53 hours | INTEL Pentium III 800MHz - 256MB sdram -40
+  100000000 |            | student@stonybrook.edu|                         |  24 hours | Core i5 2.7GHz - 4GB DDR3 - 750GB HDD
+
+<span class="comment">// Note that Bid and Buyer are missing for the new record. These correspond to &#39;null&#39; attributes in the database.</span>
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">Q</span>
+
+Writing Auction Table to file...                <span class="comment">// Serialize the Auction Table.</span>
+Done!
+
+Goodbye.
+
+<span class="comment">// Starting up again.</span>
+Starting...
+Loading previous Auction Table...               <span class="comment">// Loading from file.</span>
+
+Please select a username: <span class="input">buyer@gmail.com</span>
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">B</span>
+Please enter an Auction ID: <span class="input">100000000</span>
+
+Auction 100000000 is OPEN
+    Current Bid: None
+
+What would you like to bid?: <span class="input">1500.00</span>
+Bid accepted.
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">P</span>
+
+ Auction ID |      Bid   |        Seller         |          Buyer          |    Time   |  Item Info <span class="comment">// truncated to fit on one line</span>
+===================================================================================================================================
+  511601118 | $   620.00 | cubsfantony           |  gosha555@excite.com    | 110 hours | Pentium III 933 System - 256MB PC133 SDram
+  511448507 | $   620.00 | ct-inc                |  petitjc@yahoo.com      |  54 hours | Pentium III 800EB-MHz Coppermine CPU - 256
+  511443245 | $ 1,025.00 | ct-inc                |  hsclm9@peganet.com     |  54 hours | Intel Pentium III 933EB-MHz Coppermine CPU
+  511364992 | $   625.00 | bestbuys4systems      |  student@stonybrook.edu |  53 hours | Genuine Intel Pentium III 1000MHz Processo
+  511357667 | $   535.00 | sales@ctgcom.com      |  chul2@mail.utexas.edu  |  53 hours | INTEL Pentium III 800MHz - 256MB sdram -40
+  100000000 | $ 1,500.00 | student@stonybrook.edu|  buyer@gmail.com        |  24 hours | Core i5 2.7GHz - 4GB DDR3 - 750GB HDD
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">T</span>
+How many hours should pass: <span class="input">30</span>
+
+Time passing...
+Auction times updated.
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">P</span>
+
+ Auction ID |      Bid   |        Seller         |          Buyer          |    Time   |  Item Info <span class="comment">// truncated to fit on one line</span>
+===================================================================================================================================
+  511601118 | $   620.00 | cubsfantony           |  gosha555@excite.com    |  80 hours | Pentium III 933 System - 256MB PC133 SDram
+  511448507 | $   620.00 | ct-inc                |  petitjc@yahoo.com      |  24 hours | Pentium III 800EB-MHz Coppermine CPU - 256
+  511443245 | $ 1,025.00 | ct-inc                |  hsclm9@peganet.com     |  24 hours | Intel Pentium III 933EB-MHz Coppermine CPU
+  511364992 | $   625.00 | bestbuys4systems      |  student@stonybrook.edu |  23 hours | Genuine Intel Pentium III 1000MHz Processo
+  511357667 | $   535.00 | sales@ctgcom.com      |  chul2@mail.utexas.edu  |  23 hours | INTEL Pentium III 800MHz - 256MB sdram -40
+  100000000 | $ 1,500.00 | student@stonybrook.edu|  buyer@gmail.com        |   0 hours | Core i5 2.7GHz - 4GB DDR3 - 750GB HDD
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">B</span>
+Please enter an Auction ID: <span class="input">100000000</span>
+
+Auction 100000000 is CLOSED
+    Current Bid: $ 1,500.00
+
+You can no longer bid on this item.
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">I</span>
+Please enter an Auction ID: <span class="input">511448507</span>
+
+Auction 51148507:
+    Seller: ct-inc
+    Buyer: petitjc@yahoo.com
+    Time: 24 hours
+    Info: Pentium III 800EB-MHz Coppermine CPU - 256MB PC133 SDRAM - 30.7GB IBM Deskstar ATA100 7200RPM
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">R</span>
+
+Removing expired auctions...
+All expired auctions removed.
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">P</span>
+
+ Auction ID |      Bid   |        Seller         |          Buyer          |    Time   |  Item Info <span class="comment">// truncated to fit on one line</span>
+===================================================================================================================================
+  511601118 | $   620.00 | cubsfantony           |  gosha555@excite.com    |  80 hours | Pentium III 933 System - 256MB PC133 SDram
+  511448507 | $   620.00 | ct-inc                |  petitjc@yahoo.com      |  24 hours | Pentium III 800EB-MHz Coppermine CPU - 256
+  511443245 | $ 1,025.00 | ct-inc                |  hsclm9@peganet.com     |  24 hours | Intel Pentium III 933EB-MHz Coppermine CPU
+  511364992 | $   625.00 | bestbuys4systems      |  student@stonybrook.edu |  23 hours | Genuine Intel Pentium III 1000MHz Processo
+  511357667 | $   535.00 | sales@ctgcom.com      |  chul2@mail.utexas.edu  |  23 hours | INTEL Pentium III 800MHz - 256MB sdram -40
+
+<span class="comment">// Menu not printed in sample i/o.</span>
+
+Please select an option: <span class="input">Q</span>
+
+Writing Auction Table to file...                <span class="comment">// Serialize the Auction Table.</span>
+Done!
+
+Goodbye.
+
+</pre>
+
+</strong>
+</div>
+
+<strong></strong></p></p></div>
+
+<hr size="2" width="100%" align="center"/>
+
+<p align="center" style="text-align:center;"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:maroon;"><a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/courseinfo.htm" target="_blank">Course Info</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/schedule.htm" target="_blank">Schedule</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/sections.htm" target="_blank">Sections</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/index.html" target="_blank">Announcements</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/homework.htm" target="_blank">Homework</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/exams.htm" target="_blank">Exams</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/help.htm" target="_blank">Help/FAQ</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/grades.htm" target="_blank">Grades</a> | <a rel="noopener" href="http://www.cs.sunysb.edu/~cse214/index.html" target="_blank">HOME</a></span></strong><b> </b></p>
+
+</div>
+<script type="module" src="https://s.brightspace.com/lib/bsi/20.22.10-212/unbundled/mathjax.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					if (document.querySelector('math') || /\$\$|\\\(|\\\[|\\begin{|\\ref{|\\eqref{/.test(document.body.innerHTML)) {
+						document.querySelectorAll('mspace[linebreak="newline"]').forEach(elm => {
+							elm.setAttribute('style', 'display: block; height: 0.5rem;');
+						});
+
+						window.D2L.MathJax.loadMathJax({
+							'outputScale': 1.3,
+							'renderLatex': true
+						});
+					}
+				});</script><script type="module" src="https://s.brightspace.com/lib/bsi/20.22.10-212/unbundled/prism.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					document.querySelectorAll('.d2l-code').forEach(code => {
+						window.D2L.Prism.formatCodeElement(code);
+					});
+				});</script></body></html>
