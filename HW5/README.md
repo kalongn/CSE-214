@@ -1,2 +1,3 @@
 ### HW5 <br/>
-Topic: Trees
+Topic: Trees.  
+Score: 110 / 100
