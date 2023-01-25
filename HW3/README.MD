@@ -1,2 +1,3 @@
 ### HW3 <br/>
-Topic: Stacks
+Topic: Stacks.  
+Score: 100 / 100
